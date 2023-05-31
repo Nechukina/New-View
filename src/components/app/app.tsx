@@ -1,12 +1,7 @@
-import Basket from '../../pages/basket/basket';
-import ModalProductBasketSuccess from '../modal-product-basket-success/modal-product-basket-success';
+import Catalog from '../../pages/catalog/catalog';
 
 function App(): JSX.Element {
-  return (
-    <>
-      <Basket />
-      <ModalProductBasketSuccess/>
-    </>);
+  return <Catalog />;
 }
 
 export default App;
