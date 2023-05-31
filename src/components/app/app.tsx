@@ -1,7 +1,7 @@
-import Product from '../../pages/product/product';
+import Basket from '../../pages/basket/basket';
 
 function App(): JSX.Element {
-  return <Product />;
+  return <Basket />;
 }
 
 export default App;
