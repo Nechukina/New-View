@@ -1,14 +1,22 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import Footer from '../../components/footer/footer';
+import { getCatalogAction } from '../../store/api-actions';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ProductCard from '../../components/product-card/product-card';
+import { useAppDispatch } from '../../hooks';
 
 function Catalog(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCatalogAction());
+  }, [dispatch]);
   return (
     <>
       <Helmet>

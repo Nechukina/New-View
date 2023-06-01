@@ -22,5 +22,30 @@ export enum NameSpace {
   Coupon = 'COUPON',
   Order = 'ORDER',
   Notification = 'NOTIFICATION',
-  Filter = 'FILTER'
+  Filter = 'FILTER',
+}
+
+export enum Status {
+  Idle = 'idle',
+  Loading = 'loading',
+  Success = 'success',
+  Error = 'error'
+}
+
+export enum CameraType {
+  Коллекционная = 'Коллекционная',
+  Моментальная = 'Моментальная',
+  Цифровая = 'Цифровая',
+  Плёночная = 'Плёночная',
+}
+
+export enum CameraCategory {
+  Видеокамера = 'Видеокамера',
+  Фотоаппарат = 'Фотоаппарат',
+}
+
+export enum CameraLevel {
+  Нулевой = 'Нулевой',
+  Любительский = 'Любительский',
+  Профессиональный = 'Профессиональный',
 }
