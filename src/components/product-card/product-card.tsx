@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
 function ProductCard(): JSX.Element {
   return (
     <div className="product-card">
@@ -34,8 +37,8 @@ function ProductCard(): JSX.Element {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить
         </button>
-        <a className="btn btn--transparent" href="#todo">Подробнее
-        </a>
+        <Link className="btn btn--transparent" to={AppRoute.Product}>Подробнее
+        </Link>
       </div>
     </div>
   );

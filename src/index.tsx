@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import SvgHiddenWrapper from './components/svg-hidden-wrapper/svg-hidden-wrapper';
+import HistoryRouter from './components/history-router/history-router';
+import browserHistory from './utils/browser-history';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -9,7 +11,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <SvgHiddenWrapper />
-    <App />
+    <HistoryRouter history={browserHistory}>
+      <SvgHiddenWrapper />
+      <App />
+    </HistoryRouter>
   </React.StrictMode>,
 );
