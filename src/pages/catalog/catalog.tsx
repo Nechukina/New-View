@@ -5,17 +5,21 @@ import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import Footer from '../../components/footer/footer';
-import { getCatalogAction } from '../../store/api-actions';
+import { getCatalogAction, getPromoAction } from '../../store/api-actions';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ProductCard from '../../components/product-card/product-card';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getCameras } from '../../store/catalog/catalog.selectors';
 
 function Catalog(): JSX.Element {
   const dispatch = useAppDispatch();
+  const cameras = useAppSelector(getCameras);
+
 
   useEffect(() => {
     dispatch(getCatalogAction());
+    dispatch(getPromoAction());
   }, [dispatch]);
   return (
     <>
@@ -38,12 +42,12 @@ function Catalog(): JSX.Element {
                   <div className="catalog__content">
                     <CatalogSort />
                     <div className="cards catalog__cards">
-                      <ProductCard />
-                      <ProductCard />
-                      <ProductCard />
-                      <ProductCard />
-                      <ProductCard />
-                      <ProductCard />
+                      {
+                        cameras
+                          .map((camera) =>
+                            <ProductCard key={camera.id} camera={camera}/>
+                          )
+                      }
                     </div>
                     <Pagination />
                   </div>

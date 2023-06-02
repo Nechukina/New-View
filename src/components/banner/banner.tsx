@@ -1,13 +1,28 @@
+import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { getPromo } from '../../store/promo/promo.selectors';
+import { AppRoute } from '../../const';
+
 function Banner(): JSX.Element {
+  const promo = useAppSelector(getPromo);
+
+  if (!promo) {
+    return (
+      <div className="banner"></div>
+    );
+  }
+
   return (
     <div className="banner">
       <picture>
-        <source type="image/webp" srcSet="img/content/banner-bg.webp, img/content/banner-bg@2x.webp 2x"/>
-        <img src="img/content/banner-bg.jpg" srcSet="img/content/banner-bg@2x.jpg 2x" width="1280" height="280" alt="баннер"/>
+        <source type="image/webp" srcSet={`${promo.previewImgWebp}, ${promo.previewImgWebp2x} 2x`}/>
+        <img src={promo.previewImg} srcSet={`${promo.previewImg2x} 2x`} width="1280" height="280" alt="баннер"/>
       </picture>
-      <p className="banner__info"><span className="banner__message">Новинка!</span><span className="title title--h1">Cannonball&nbsp;Pro&nbsp;MX&nbsp;8i</span><span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span><a className="btn" href="#">Подробнее</a></p>
+      <p className="banner__info"><span className="banner__message">Новинка!</span><span className="title title--h1">{promo.name}</span><span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span><Link className="btn" to={AppRoute.Product}>Подробнее</Link></p>
     </div>
   );
 }
+
+//TODO: link
 
 export default Banner;
