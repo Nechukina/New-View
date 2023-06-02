@@ -1,7 +1,7 @@
 import { Link, generatePath } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
-import { getPromo } from '../../store/promo/promo.selectors';
 import { AppRoute } from '../../const';
+import { getPromo } from '../../store/promo/promo.selectors';
+import { useAppSelector } from '../../hooks';
 
 function Banner(): JSX.Element {
   const promo = useAppSelector(getPromo);

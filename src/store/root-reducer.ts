@@ -3,9 +3,11 @@ import { NameSpace } from '../const';
 import { notificationsSlice } from './notifications/notifications.slice';
 import { catalogSlice } from './catalog/catalog.slice';
 import { promoSlice } from './promo/promo.slice';
+import { productSlice } from './product/product.slice';
 
 export const rootReducer = combineReducers({
   [NameSpace.Notification]: notificationsSlice.reducer,
-  [NameSpace.Camera]: catalogSlice.reducer,
+  [NameSpace.Cameras]: catalogSlice.reducer,
   [NameSpace.Promo]: promoSlice.reducer,
+  [NameSpace.Product]: productSlice.reducer,
 });

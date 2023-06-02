@@ -1,4 +1,13 @@
+import { getProduct } from '../../store/product/product.selectors';
+import Loader from '../loader/loader';
+import { useAppSelector } from '../../hooks';
+
 function BreadcrumbsProduct(): JSX.Element {
+  const product = useAppSelector(getProduct);
+
+  if (!product) {
+    return <Loader />;
+  }
   return (
     <div className="breadcrumbs">
       <div className="container">
@@ -18,7 +27,7 @@ function BreadcrumbsProduct(): JSX.Element {
             </a>
           </li>
           <li className="breadcrumbs__item">
-            <span className="breadcrumbs__link breadcrumbs__link--active">Ретрокамера Das Auge IV</span>
+            <span className="breadcrumbs__link breadcrumbs__link--active">{product.name}</span>
           </li>
         </ul>
       </div>

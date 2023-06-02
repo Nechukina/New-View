@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkOptions } from '../types/state';
-import { Cameras } from '../types/camera';
+import { Camera, Cameras } from '../types/camera';
 import { APIRoute } from '../const';
 import { pushNotification } from './notifications/notifications.slice';
 import { PromoCamera } from '../types/promo';
+import { generatePath } from 'react-router-dom';
 
 
 export const getCatalogAction = createAsyncThunk<Cameras, undefined, ThunkOptions>(
@@ -29,6 +30,20 @@ export const getPromoAction = createAsyncThunk<PromoCamera, undefined, ThunkOpti
       return data;
     } catch (err) {
       dispatch(pushNotification({ type: 'error', message: 'Не удалось загрузить информацию о промо предложении' }));
+      throw err;
+    }
+  }
+);
+
+export const getCameraInfoAction = createAsyncThunk<Camera, string, ThunkOptions>(
+  'data/getCameraInfo',
+  async (cameraId, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<Camera>(generatePath(APIRoute.Product, { cameraId: cameraId.toString() }));
+
+      return data;
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Не удалось загрузить информацию о товарае' }));
       throw err;
     }
   }
