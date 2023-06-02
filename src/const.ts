@@ -18,6 +18,7 @@ export enum APIRoute {
 export enum NameSpace {
   Cameras = 'CAMERAS',
   Product = 'PRODUCT',
+  Similar = 'SIMILAR',
   Promo = 'PROMO',
   Review = 'REVIEW',
   Coupon = 'COUPON',

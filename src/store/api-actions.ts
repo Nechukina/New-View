@@ -48,3 +48,17 @@ export const getCameraInfoAction = createAsyncThunk<Camera, string, ThunkOptions
     }
   }
 );
+
+export const getSimilarProductsAction = createAsyncThunk<Cameras, string, ThunkOptions>(
+  'data/getSimilarProducts',
+  async (cameraId, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<Cameras>(generatePath(APIRoute.Similar, { cameraId: cameraId.toString() }));
+
+      return data;
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Не удалось загрузить информацию о похожих товарах' }));
+      throw err;
+    }
+  }
+);
