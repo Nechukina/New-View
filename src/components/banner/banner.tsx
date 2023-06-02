@@ -8,7 +8,7 @@ function Banner(): JSX.Element {
 
   if (!promo) {
     return (
-      <div className="banner"></div>
+      <div></div>
     );
   }
 
