@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 
@@ -42,8 +42,7 @@ function ProductCard({camera}: ProductCardProps): JSX.Element {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить
         </button>
-        <Link className="btn btn--transparent" to={AppRoute.Product}>Подробнее
-          {/* //TODO: route */}
+        <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, { id: camera.id.toString() })}>Подробнее
         </Link>
       </div>
     </div>

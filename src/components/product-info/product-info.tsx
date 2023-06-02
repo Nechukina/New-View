@@ -4,8 +4,8 @@ function ProductInfo(): JSX.Element {
       <div className="container">
         <div className="product__img">
           <picture>
-            <source type="image/webp" srcSet="img/content/img1.webp, img/content/img1@2x.webp 2x"/>
-            <img src="img/content/img1.jpg" srcSet="img/content/img1@2x.jpg 2x" width="560" height="480" alt="Ретрокамера Das Auge IV"/>
+            <source type="image/webp" srcSet="/img/content/img1.webp, /img/content/img1@2x.webp 2x"/>
+            <img src="/img/content/img1.jpg" srcSet="/img/content/img1@2x.jpg 2x" width="560" height="480" alt="Ретрокамера Das Auge IV"/>
           </picture>
         </div>
         <div className="product__content">

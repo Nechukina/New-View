@@ -1,7 +1,7 @@
 export enum AppRoute {
   Catalog = '/',
   Basket = '/basket',
-  Product = '/product',
+  Product = '/product/:id',
 }
 
 export enum APIRoute {

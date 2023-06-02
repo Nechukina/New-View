@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getPromo } from '../../store/promo/promo.selectors';
 import { AppRoute } from '../../const';
@@ -18,11 +18,15 @@ function Banner(): JSX.Element {
         <source type="image/webp" srcSet={`${promo.previewImgWebp}, ${promo.previewImgWebp2x} 2x`}/>
         <img src={promo.previewImg} srcSet={`${promo.previewImg2x} 2x`} width="1280" height="280" alt="баннер"/>
       </picture>
-      <p className="banner__info"><span className="banner__message">Новинка!</span><span className="title title--h1">{promo.name}</span><span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span><Link className="btn" to={AppRoute.Product}>Подробнее</Link></p>
+      <p className="banner__info">
+        <span className="banner__message">Новинка!</span>
+        <span className="title title--h1">{promo.name}</span>
+        <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
+        <Link className="btn" to={generatePath(AppRoute.Product, { id: promo.id.toString() })}>Подробнее</Link>
+      </p>
     </div>
   );
 }
 
-//TODO: link
 
 export default Banner;
