@@ -4,4 +4,4 @@ import { State } from '../../types/state';
 
 
 export const getSimilarProducts = (state: State): Cameras => state[NameSpace.Similar].similarProducts;
-export const getStatus = (state: State): Status => state[NameSpace.Similar].status;
+export const getSimilarProductsStatus = (state: State): Status => state[NameSpace.Similar].status;
