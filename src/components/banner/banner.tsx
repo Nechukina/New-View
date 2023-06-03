@@ -2,16 +2,19 @@ import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getPromo } from '../../store/promo/promo.selectors';
 import { useAppSelector } from '../../hooks';
+import Loader from '../loader/loader';
+import { getCameras } from '../../store/catalog/catalog.selectors';
 
 function Banner(): JSX.Element {
   const promo = useAppSelector(getPromo);
+  const cameras = useAppSelector(getCameras);
 
   if (!promo) {
     return (
-      <div></div>
+      <Loader />
     );
   }
-
+  const description = cameras.find((camera) => camera.name === promo.name)?.description;
   return (
     <div className="banner">
       <picture>
@@ -21,7 +24,7 @@ function Banner(): JSX.Element {
       <p className="banner__info">
         <span className="banner__message">Новинка!</span>
         <span className="title title--h1">{promo.name}</span>
-        <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
+        <span className="banner__text">{description}</span>
         <Link className="btn" to={generatePath(AppRoute.Product, { id: promo.id.toString() })}>Подробнее</Link>
       </p>
     </div>
