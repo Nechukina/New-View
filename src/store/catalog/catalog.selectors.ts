@@ -4,4 +4,4 @@ import { State } from '../../types/state';
 
 
 export const getCameras = (state: State): Cameras => state[NameSpace.Cameras].catalog;
-export const getStatus = (state: State): Status => state[NameSpace.Cameras].status;
+export const getCamerasStatus = (state: State): Status => state[NameSpace.Cameras].status;

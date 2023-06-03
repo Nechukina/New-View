@@ -4,9 +4,12 @@ import { Camera } from '../../types/camera';
 
 export type ProductCardProps = {
   camera: Camera;
+  onBuyButtonClick: (camera: Camera) => void;
 }
 
-function ProductCard({camera}: ProductCardProps): JSX.Element {
+function ProductCard({camera, onBuyButtonClick}: ProductCardProps): JSX.Element {
+
+
   return (
     <div className="product-card">
       <div className="product-card__img">
@@ -40,7 +43,12 @@ function ProductCard({camera}: ProductCardProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button
+          onClick={() => onBuyButtonClick(camera)}
+          className="btn btn--purple product-card__btn"
+          type="button"
+        >
+          Купить
         </button>
         <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, { id: camera.id.toString() })}>Подробнее
         </Link>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
@@ -10,17 +10,42 @@ import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ProductCard from '../../components/product-card/product-card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/catalog/catalog.selectors';
+import { getCameras, getCamerasStatus } from '../../store/catalog/catalog.selectors';
+import { Camera } from '../../types/camera';
+import { Status } from '../../const';
+import { getPromoStatus } from '../../store/promo/promo.selectors';
+import Loader from '../../components/loader/loader';
+import ModalCatalogAddItem from '../../components/modal-catalog-add-item/modal-catalog-add-item';
 
 function Catalog(): JSX.Element {
   const dispatch = useAppDispatch();
   const cameras = useAppSelector(getCameras);
+  const camerasStatus = useAppSelector(getCamerasStatus);
+  const promoStatus = useAppSelector(getPromoStatus);
 
+  const [isBuyModalOpened, setBuyModalOpened] = useState(false);
+  const [product, setProduct] = useState<Camera | null>(null);
+
+  const handleBuyModalShow = useCallback((camera: Camera | null) => {
+    //TODO: настроить поведение модальных окон: закрытие по esc, зацикливание табов на модальном окне
+    //TODO как добавить класс родительскому контейнеру?
+    document.body.style.overflow = isBuyModalOpened ? '' : 'hidden';
+
+    setBuyModalOpened(!isBuyModalOpened);
+    setProduct(camera);
+  }, [isBuyModalOpened]);
 
   useEffect(() => {
-    dispatch(getCatalogAction());
-    dispatch(getPromoAction());
-  }, [dispatch]);
+    if(camerasStatus === Status.Idle) {
+      dispatch(getCatalogAction());
+      dispatch(getPromoAction());
+    }
+  }, [camerasStatus, dispatch]);
+
+  if (camerasStatus === Status.Idle || camerasStatus === Status.Loading || promoStatus === Status.Idle || promoStatus === Status.Loading){
+    return <Loader />;
+  }
+
   return (
     <>
       <Helmet>
@@ -44,17 +69,27 @@ function Catalog(): JSX.Element {
                     <div className="cards catalog__cards">
                       {
                         cameras
-                          .map((camera) =>
-                            <ProductCard key={camera.id} camera={camera}/>
+                          .map((camera) =>(
+                            <ProductCard
+                              key={camera.id}
+                              camera={camera}
+                              onBuyButtonClick={handleBuyModalShow}
+                            />)
                           )
                       }
                     </div>
+                    {/* TODO: pagination */}
                     <Pagination />
                   </div>
                 </div>
               </div>
             </section>
           </div>
+          <ModalCatalogAddItem
+            isOpened={isBuyModalOpened}
+            product={product}
+            onCloseButtonClick={handleBuyModalShow}
+          />
         </main>
         <Footer />
       </div>
