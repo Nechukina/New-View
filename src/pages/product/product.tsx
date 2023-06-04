@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, MouseEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import BreadcrumbsProduct from '../../components/breadcrumbs/breadcrumbs-product';
@@ -22,8 +22,9 @@ function Product(): JSX.Element {
     dispatch(getReviewsAction(cameraId));
   }, [cameraId, dispatch]);
 
-  const scrollToTop = () => {
+  const scrollToTop = (evt: MouseEvent<HTMLAnchorElement>) => {
     //TODO: можно ли оставить обращение к window?
+    evt.preventDefault();
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
