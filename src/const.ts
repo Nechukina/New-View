@@ -1,5 +1,6 @@
 export enum AppRoute {
-  Catalog = '/',
+  Main = '/',
+  Catalog = '/catalog/:page',
   Basket = '/basket',
   Product = '/product/:id',
 }
@@ -51,3 +52,5 @@ export enum CameraLevel {
   Любительский = 'Любительский',
   Профессиональный = 'Профессиональный',
 }
+
+export const CAMERAS_PER_PAGE = 9;

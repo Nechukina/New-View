@@ -15,7 +15,7 @@ function BreadcrumbsProduct(): JSX.Element {
       <div className="container">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">
-            <Link className="breadcrumbs__link" to={AppRoute.Catalog}>Главная
+            <Link className="breadcrumbs__link" to={AppRoute.Main}>Главная
               <svg width="5" height="8" aria-hidden="true">
                 <use xlinkHref="#icon-arrow-mini"></use>
               </svg>

@@ -1,15 +1,20 @@
+import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
-import Catalog from '../../pages/catalog/catalog';
 import { AppRoute } from '../../const';
 import Basket from '../../pages/basket/basket';
+import Catalog from '../../pages/catalog/catalog';
+import MainPage from '../../pages/main-page/main-page';
 import Product from '../../pages/product/product';
 import Page404 from '../../pages/page-404/page-404';
-import { HelmetProvider } from 'react-helmet-async';
 
 function App(): JSX.Element {
   return (
     <HelmetProvider>
       <Routes>
+        <Route
+          path={AppRoute.Main}
+          element={<MainPage />}
+        />
         <Route
           path={AppRoute.Catalog}
           element={<Catalog />}

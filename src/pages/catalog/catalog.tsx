@@ -1,21 +1,23 @@
-import { useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
+import { Camera } from '../../types/camera';
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import Footer from '../../components/footer/footer';
-import { getCatalogAction, getPromoAction } from '../../store/api-actions';
-import Header from '../../components/header/header';
-import Pagination from '../../components/pagination/pagination';
-import ProductCard from '../../components/product-card/product-card';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCameras, getCamerasStatus } from '../../store/catalog/catalog.selectors';
-import { Camera } from '../../types/camera';
-import { Status } from '../../const';
+import { getCatalogAction, getPromoAction } from '../../store/api-actions';
 import { getPromoStatus } from '../../store/promo/promo.selectors';
+import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import ModalCatalogAddItem from '../../components/modal-catalog-add-item/modal-catalog-add-item';
+import Pagination from '../../components/pagination/pagination';
+import ProductCard from '../../components/product-card/product-card';
+import { CAMERAS_PER_PAGE, Status } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import Page404 from '../page-404/page-404';
 
 function Catalog(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,8 +25,17 @@ function Catalog(): JSX.Element {
   const camerasStatus = useAppSelector(getCamerasStatus);
   const promoStatus = useAppSelector(getPromoStatus);
 
+
+  const param = useParams().page;
+  const currentPage = Number(param?.replace(/[^\d]/g, ''));
+
+  const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
+  const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
+
+
   const [isBuyModalOpened, setBuyModalOpened] = useState(false);
   const [product, setProduct] = useState<Camera | null>(null);
+
 
   const handleBuyModalShow = useCallback((camera: Camera | null) => {
     //TODO: настроить поведение модальных окон: закрытие по esc, зацикливание табов на модальном окне
@@ -44,6 +55,10 @@ function Catalog(): JSX.Element {
 
   if (camerasStatus === Status.Idle || camerasStatus === Status.Loading || promoStatus === Status.Idle || promoStatus === Status.Loading){
     return <Loader />;
+  }
+
+  if (currentPage > pageCount || !currentPage) {
+    return <Page404 />;
   }
 
   return (
@@ -68,7 +83,7 @@ function Catalog(): JSX.Element {
                     <CatalogSort />
                     <div className="cards catalog__cards">
                       {
-                        cameras
+                        renderedCameras
                           .map((camera) =>(
                             <ProductCard
                               key={camera.id}
@@ -78,8 +93,7 @@ function Catalog(): JSX.Element {
                           )
                       }
                     </div>
-                    {/* TODO: pagination */}
-                    <Pagination />
+                    {pageCount > 1 && <Pagination currentPage={currentPage} pageCount={pageCount} />}
                   </div>
                 </div>
               </div>
