@@ -50,7 +50,7 @@ function ProductCard({camera, onBuyButtonClick}: ProductCardProps): JSX.Element 
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, { id: camera.id.toString() })}>Подробнее
+        <Link className="btn btn--transparent" to={generatePath(AppRoute.Description, { id: camera.id.toString() })}>Подробнее
         </Link>
       </div>
     </div>

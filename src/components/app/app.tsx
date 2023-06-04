@@ -28,6 +28,14 @@ function App(): JSX.Element {
           element={<Product />}
         />
         <Route
+          path={AppRoute.Features}
+          element={<Product />}
+        />
+        <Route
+          path={AppRoute.Description}
+          element={<Product />}
+        />
+        <Route
           path='*'
           element={<Page404 />}
         />

@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Link, generatePath } from 'react-router-dom';
 import clsx from 'clsx';
+import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 
 type ProductTabsProps = {
@@ -18,20 +20,24 @@ function ProductTabs({ camera }: ProductTabsProps): JSX.Element {
   return (
     <div className="tabs product__tabs">
       <div className="tabs__controls product__tabs-controls">
-        <button
-          className={clsx('tabs__control', featuresOpened && 'is-active')}
-          type="button"
-          onClick={handleClick}
-        >
+        <Link to={generatePath(AppRoute.Features, {id: camera.id.toString()})}>
+          <button
+            className={clsx('tabs__control', featuresOpened && 'is-active')}
+            type="button"
+            onClick={handleClick}
+          >
           Характеристики
-        </button>
-        <button
-          className={clsx('tabs__control', descriptionOpened && 'is-active')}
-          type="button"
-          onClick={handleClick}
-        >
+          </button>
+        </Link>
+        <Link to={generatePath(AppRoute.Description, {id: camera.id.toString()})}>
+          <button
+            className={clsx('tabs__control', descriptionOpened && 'is-active')}
+            type="button"
+            onClick={handleClick}
+          >
           Описание
-        </button>
+          </button>
+        </Link>
       </div>
       <div className="tabs__content">
         <div className={clsx('tabs__element', featuresOpened && 'is-active')}>
