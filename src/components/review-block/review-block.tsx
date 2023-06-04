@@ -20,7 +20,13 @@ function ReviewBlock(): JSX.Element {
         <ul className="review-block__list">
           {sortedReviews
             .slice(0, currentReviewsCount)
-            .map((comment) => (<ReviewCard key={comment.id} review={comment}/>))}
+            .map((comment) => (
+              <ReviewCard
+                key={comment.id}
+                review={comment}
+              />
+            )
+            )}
         </ul>
         <div className="review-block__buttons">
           {sortedReviews.length > currentReviewsCount &&
