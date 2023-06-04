@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { Link, generatePath, useParams } from 'react-router-dom';
 import BreadcrumbsProduct from '../../components/breadcrumbs/breadcrumbs-product';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -9,6 +9,7 @@ import ProductSimilar from '../../components/product-similar/product-similar';
 import ReviewBlock from '../../components/review-block/review-block';
 import { useAppDispatch } from '../../hooks';
 import { getCameraInfoAction, getReviewsAction, getSimilarProductsAction } from '../../store/api-actions';
+import { AppRoute } from '../../const';
 
 function Product(): JSX.Element {
   const id = useParams().id;
@@ -20,6 +21,14 @@ function Product(): JSX.Element {
     dispatch(getSimilarProductsAction(cameraId));
     dispatch(getReviewsAction(cameraId));
   }, [cameraId, dispatch]);
+
+  const scrollToTop = () => {
+    //TODO: можно ли оставить обращение к window?
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <>
@@ -42,11 +51,11 @@ function Product(): JSX.Element {
             </div>
           </div>
         </main>
-        <a className="up-btn" href="#header">
+        <Link className="up-btn" onClick={scrollToTop} to={generatePath(AppRoute.Product, {id: cameraId.toString()})}>
           <svg width="12" height="18" aria-hidden="true">
             <use xlinkHref="#icon-arrow2"></use>
           </svg>
-        </a>
+        </Link>
         <Footer />
       </div>
     </>
