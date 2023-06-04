@@ -8,7 +8,7 @@ import ProductInfo from '../../components/product-info/product-info';
 import ProductSimilar from '../../components/product-similar/product-similar';
 import ReviewBlock from '../../components/review-block/review-block';
 import { useAppDispatch } from '../../hooks';
-import { getCameraInfoAction, getSimilarProductsAction } from '../../store/api-actions';
+import { getCameraInfoAction, getReviewsAction, getSimilarProductsAction } from '../../store/api-actions';
 
 function Product(): JSX.Element {
   const id = useParams().id;
@@ -18,6 +18,7 @@ function Product(): JSX.Element {
   useEffect(() => {
     dispatch(getCameraInfoAction(cameraId));
     dispatch(getSimilarProductsAction(cameraId));
+    dispatch(getReviewsAction(cameraId));
   }, [cameraId, dispatch]);
 
   return (

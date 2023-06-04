@@ -22,6 +22,7 @@ export enum NameSpace {
   Similar = 'SIMILAR',
   Promo = 'PROMO',
   Review = 'REVIEW',
+  Reviews = 'REVIEWS',
   Coupon = 'COUPON',
   Order = 'ORDER',
   Notification = 'NOTIFICATION',

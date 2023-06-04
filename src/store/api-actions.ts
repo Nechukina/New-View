@@ -5,6 +5,7 @@ import { APIRoute } from '../const';
 import { pushNotification } from './notifications/notifications.slice';
 import { PromoCamera } from '../types/promo';
 import { generatePath } from 'react-router-dom';
+import { Reviews } from '../types/review';
 
 
 export const getCatalogAction = createAsyncThunk<Cameras, undefined, ThunkOptions>(
@@ -58,6 +59,20 @@ export const getSimilarProductsAction = createAsyncThunk<Cameras, string, ThunkO
       return data;
     } catch (err) {
       dispatch(pushNotification({ type: 'error', message: 'Не удалось загрузить информацию о похожих товарах' }));
+      throw err;
+    }
+  }
+);
+
+export const getReviewsAction = createAsyncThunk<Reviews, string, ThunkOptions>(
+  'data/getReviews',
+  async (cameraId, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<Reviews>(generatePath(APIRoute.Reviews, { cameraId: cameraId.toString() }));
+
+      return data;
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Не удалось загрузить информацию об отзывах' }));
       throw err;
     }
   }
