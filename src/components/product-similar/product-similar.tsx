@@ -1,13 +1,31 @@
-import { useAppSelector } from '../../hooks';
+import { useState } from 'react';
 import { getSimilarProducts } from '../../store/similar-products/similar-products.selectors';
 import ProductSimilarCard from '../product-similar-card/product-similar-card';
+import { SIMILAR_CAMERAS_PER_VIEW } from '../../const';
+import { useAppSelector } from '../../hooks';
+
 
 function ProductSimilar(): JSX.Element {
   const similarProducts = useAppSelector(getSimilarProducts);
 
+  const [currentIndex, setCurrentIndex] = useState<number>(1);
+
   if (!similarProducts.length) {
     return (<div></div>);
   }
+
+  const slideCount = Math.ceil(similarProducts.length / SIMILAR_CAMERAS_PER_VIEW);
+  const renderedCameras = similarProducts.slice((currentIndex - 1) * SIMILAR_CAMERAS_PER_VIEW, currentIndex * SIMILAR_CAMERAS_PER_VIEW);
+
+  //TODO: почему для работы карусели нужно снимать фокус с window?
+  //TODO: как сделать плавный скролл???
+  const handleNextClick = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
+
+  const handlePrevClick = () => {
+    setCurrentIndex(currentIndex - 1);
+  };
 
   return (
     <section className="product-similar">
@@ -16,20 +34,30 @@ function ProductSimilar(): JSX.Element {
         <div className="product-similar__slider">
           <div className="product-similar__slider-list">
             {
-              // TODO: slider
-              similarProducts
-                .slice(0,3)
+              renderedCameras
                 .map((camera) =>
                   <ProductSimilarCard key={camera.id} product={camera}/>
                 )
             }
           </div>
-          <button className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled>
+          <button
+            onClick={handlePrevClick}
+            className="slider-controls slider-controls--prev"
+            type="button"
+            aria-label="Предыдущий слайд"
+            disabled = {currentIndex === 1}
+          >
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>
           </button>
-          <button className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд">
+          <button
+            onClick={handleNextClick}
+            className="slider-controls slider-controls--next"
+            type="button"
+            aria-label="Следующий слайд"
+            disabled = {currentIndex === slideCount}
+          >
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>

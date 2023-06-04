@@ -13,7 +13,12 @@ function Pagination({currentPage, pageCount}: PaginationProps): JSX.Element {
       <ul className="pagination__list">
         {currentPage !== 1 &&
           <li className="pagination__item">
-            <Link className="pagination__link pagination__link--text" to={generatePath(AppRoute.Catalog, { page: `page_${currentPage - 1}` })}>Назад</Link>
+            <Link
+              className="pagination__link pagination__link--text"
+              to={generatePath(AppRoute.Catalog, { page: `page_${currentPage - 1}` })}
+            >
+              Назад
+            </Link>
           </li>}
         {Array.from({ length: pageCount }, (_, i) => i + 1).map((page) => (
           <li className="pagination__item" key={page}>
@@ -27,7 +32,12 @@ function Pagination({currentPage, pageCount}: PaginationProps): JSX.Element {
         ))}
         {currentPage !== pageCount &&
           <li className="pagination__item">
-            <Link className="pagination__link pagination__link--text" to={generatePath(AppRoute.Catalog, { page: `page_${currentPage + 1}` })}>Далее</Link>
+            <Link
+              className="pagination__link pagination__link--text"
+              to={generatePath(AppRoute.Catalog, { page: `page_${currentPage + 1}` })}
+            >
+              Далее
+            </Link>
           </li>}
       </ul>
     </div>

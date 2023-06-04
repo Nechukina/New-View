@@ -60,3 +60,5 @@ export const CAMERAS_PER_PAGE = 9;
 
 export const DEFAULT_REVIEWS_COUNT = 3;
 
+export const SIMILAR_CAMERAS_PER_VIEW = 3;
+
