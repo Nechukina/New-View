@@ -4,18 +4,24 @@ import { DEFAULT_REVIEWS_COUNT } from '../../const';
 import { getReviews } from '../../store/reviews/reviews.selectors';
 import ReviewCard from '../review-card/review-card';
 import { useAppSelector } from '../../hooks';
+import { Camera } from '../../types/camera';
 
-function ReviewBlock(): JSX.Element {
+type ReviewBlockProps = {
+  camera: Camera ;
+  onAddReviewButtonClick: (camera: Camera) => void;
+}
+function ReviewBlock({camera, onAddReviewButtonClick}: ReviewBlockProps): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const [currentReviewsCount, setCurrentReviewsCount] = useState(DEFAULT_REVIEWS_COUNT);
   const sortedReviews = [...reviews].sort((a, b) => dayjs(b.createAt).diff(a.createAt));
+
 
   return (
     <section className="review-block">
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
-          <button className="btn" type="button">Оставить свой отзыв</button>
+          <button onClick={() => onAddReviewButtonClick(camera)} className="btn" type="button">Оставить свой отзыв</button>
         </div>
         <ul className="review-block__list">
           {sortedReviews

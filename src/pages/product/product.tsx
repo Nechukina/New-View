@@ -1,4 +1,4 @@
-import { useEffect, MouseEvent } from 'react';
+import { useEffect, MouseEvent, useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import BreadcrumbsProduct from '../../components/breadcrumbs/breadcrumbs-product';
@@ -7,14 +7,21 @@ import Header from '../../components/header/header';
 import ProductInfo from '../../components/product-info/product-info';
 import ProductSimilar from '../../components/product-similar/product-similar';
 import ReviewBlock from '../../components/review-block/review-block';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCameraInfoAction, getReviewsAction, getSimilarProductsAction } from '../../store/api-actions';
 import { AppRoute } from '../../const';
+import ModalProductReview from '../../components/modal-product-review/modal-product-review';
+import { Camera } from '../../types/camera';
+import { getProduct } from '../../store/product/product.selectors';
 
 function Product(): JSX.Element {
   const id = useParams().id;
   const cameraId = String(id);
   const dispatch = useAppDispatch();
+  const choosedProduct = useAppSelector(getProduct);
+
+  const [isAddReviewModalOpened, setAddReviewModalOpened] = useState(false);
+  const [product, setProduct] = useState<Camera | null>(null);
 
   useEffect(() => {
     dispatch(getCameraInfoAction(cameraId));
@@ -30,6 +37,15 @@ function Product(): JSX.Element {
       behavior: 'smooth'
     });
   };
+
+  const handleAddReviewModalShow = useCallback((camera: Camera | null) => {
+    //TODO: настроить поведение модальных окон: закрытие по esc, зацикливание табов на модальном окне
+    //TODO как добавить класс родительскому контейнеру?
+    document.body.style.overflow = isAddReviewModalOpened ? '' : 'hidden';
+
+    setAddReviewModalOpened(!isAddReviewModalOpened);
+    setProduct(camera);
+  }, [isAddReviewModalOpened]);
 
   return (
     <>
@@ -48,9 +64,14 @@ function Product(): JSX.Element {
               <ProductSimilar />
             </div>
             <div className="page-content__section">
-              <ReviewBlock />
+              <ReviewBlock camera={choosedProduct as Camera} onAddReviewButtonClick={handleAddReviewModalShow}/>
             </div>
           </div>
+          <ModalProductReview
+            isOpened={isAddReviewModalOpened}
+            product={product}
+            onCloseButtonClick={handleAddReviewModalShow}
+          />
         </main>
         <Link className="up-btn" onClick={scrollToTop} to={generatePath(AppRoute.Product, {id: cameraId.toString()})}>
           <svg width="12" height="18" aria-hidden="true">
