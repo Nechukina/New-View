@@ -18,7 +18,7 @@ function Page404(): JSX.Element {
               <h1 className="title title--h2" style={{textAlign: 'center'}}>Упс! Что-то пошло не так...</h1>
               <div className="product__tabs-text" style={{textAlign: 'center'}}>
                 <p>Похоже, Вы попали на несуществующую страницу. Попробуйте вернуться на главную...</p>
-                <Link className="btn btn--purple" type="button" to={AppRoute.Catalog}>Вернуться на главную</Link>
+                <Link className="btn btn--purple" type="button" to={AppRoute.Main}>Вернуться на главную</Link>
               </div>
             </div>
           </section>

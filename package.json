@@ -49,7 +49,15 @@
           "jest/unbound-method": "error"
         }
       }
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/no-misused-promises": [
+        "error",
+        {
+          "checksVoidReturn": false
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
