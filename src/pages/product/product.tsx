@@ -27,7 +27,7 @@ function Product(): JSX.Element {
     dispatch(getCameraInfoAction(cameraId));
     dispatch(getSimilarProductsAction(cameraId));
     dispatch(getReviewsAction(cameraId));
-  }, [cameraId, dispatch]);
+  }, [cameraId, dispatch, isAddReviewModalOpened]);
 
   const scrollToTop = (evt: MouseEvent<HTMLAnchorElement>) => {
     //TODO: можно ли оставить обращение к window?
