@@ -36,7 +36,13 @@ function ModalProductReviewSuccess({isOpened, onCloseButtonClick}: ModalProductR
             <use xlinkHref="#icon-review-success"></use>
           </svg>
           <div className="modal__buttons">
-            <Link to={generatePath(AppRoute.Product, {id: cameraId.toString()})} onClick={() => onCloseButtonClick()} className="btn btn--purple modal__btn modal__btn--fit-width" type="button">Вернуться к покупкам
+            <Link
+              to={generatePath(AppRoute.Product, {id: cameraId.toString()})}
+              onClick={() => onCloseButtonClick()}
+              className="btn btn--purple modal__btn modal__btn--fit-width"
+              type="button"
+            >
+              Вернуться к покупкам
             </Link>
           </div>
           <button className="cross-btn" onClick={() => onCloseButtonClick()} type="button" aria-label="Закрыть попап">

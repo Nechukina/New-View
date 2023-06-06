@@ -84,7 +84,10 @@ function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewS
                       <input onClick={() => setRate(1)} className="visually-hidden" id="star-1" type="radio" value="1"{...register('rating', {required: true})}/>
                       <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
                     </div>
-                    <div className="rate__progress"><span className="rate__stars">{rate}</span> <span>/</span> <span className="rate__all-stars">5</span>
+                    <div className="rate__progress">
+                      <span className="rate__stars">{rate}</span>
+                      <span>/</span>
+                      <span className="rate__all-stars">5</span>
                     </div>
                   </div>
                   <p className="rate__message">Нужно оценить товар</p>
@@ -96,7 +99,11 @@ function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewS
                         <use xlinkHref="#icon-snowflake"></use>
                       </svg>
                     </span>
-                    <input type="text" placeholder="Введите ваше имя" {...register('userName', {required: true})}/>
+                    <input
+                      type="text"
+                      placeholder="Введите ваше имя"
+                      {...register('userName', {required: true})}
+                    />
                   </label>
                   {errors.userName && <p className="custom-input__error">Нужно указать имя</p>}
                 </div>
@@ -107,7 +114,11 @@ function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewS
                         <use xlinkHref="#icon-snowflake"></use>
                       </svg>
                     </span>
-                    <input type="text" placeholder="Основные преимущества товара" {...register('advantage', {required: true})}/>
+                    <input
+                      type="text"
+                      placeholder="Основные преимущества товара"
+                      {...register('advantage', {required: true})}
+                    />
                   </label>
                   {errors.advantage && <p className="custom-input__error">Нужно указать достоинства</p>}
                 </div>
@@ -118,7 +129,11 @@ function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewS
                         <use xlinkHref="#icon-snowflake"></use>
                       </svg>
                     </span>
-                    <input type="text" placeholder="Главные недостатки товара" {...register('disadvantage', {required: true})}/>
+                    <input
+                      type="text"
+                      placeholder="Главные недостатки товара"
+                      {...register('disadvantage', {required: true})}
+                    />
                   </label>
                   {errors.disadvantage && <p className="custom-input__error">Нужно указать недостатки</p>}
                 </div>
@@ -129,15 +144,28 @@ function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewS
                         <use xlinkHref="#icon-snowflake"></use>
                       </svg>
                     </span>
-                    <textarea minLength={5} placeholder="Поделитесь своим опытом покупки" {...register('review', {required: true})}></textarea>
+                    <textarea
+                      minLength={5}
+                      placeholder="Поделитесь своим опытом покупки"
+                      {...register('review', {required: 'Нужно добавить комментарий', minLength: {
+                        value: 5,
+                        message: 'Минимум 5 символов'
+                      }})}
+                    >
+                    </textarea>
                   </label>
-                  {errors.review && <div className="custom-textarea__error">Нужно добавить комментарий</div>}
+                  {errors.review && <div className="custom-textarea__error">{errors.review.message}</div>}
                 </div>
               </div>
               <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>
             </form>
           </div>
-          <button onClick={() => onCloseButtonClick(null)} className="cross-btn" type="button" aria-label="Закрыть попап">
+          <button
+            onClick={() => onCloseButtonClick(null)}
+            className="cross-btn"
+            type="button"
+            aria-label="Закрыть попап"
+          >
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>
             </svg>

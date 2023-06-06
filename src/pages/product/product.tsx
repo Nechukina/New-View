@@ -34,27 +34,25 @@ function Product(): JSX.Element {
 
 
   const scrollToTop = (evt: MouseEvent<HTMLAnchorElement>) => {
-    //TODO: можно ли оставить обращение к window?
     evt.preventDefault();
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   };
-
+  //TODO: двойной esc в модалках
   const handleAddReviewModalShow = useCallback((camera: Camera | null) => {
-    //TODO: настроить поведение модальных окон: зацикливание табов на модальном окне
-    //TODO как добавить класс родительскому контейнеру?
     document.body.style.overflow = isAddReviewModalOpened ? '' : 'hidden';
 
     setAddReviewModalOpened(!isAddReviewModalOpened);
     setProduct(camera);
   }, [isAddReviewModalOpened]);
 
-  const handleAddReviewSuccess = () => {
+  const handleAddReviewSuccess = useCallback(() => {
     document.body.style.overflow = isAddReviewSuccessModalOpened ? '' : 'hidden';
+
     setAddReviewSuccessModalOpened(!isAddReviewSuccessModalOpened);
-  };
+  },[isAddReviewSuccessModalOpened]);
 
   return (
     <>

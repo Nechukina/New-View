@@ -38,8 +38,6 @@ function Catalog(): JSX.Element {
 
 
   const handleBuyModalShow = useCallback((camera: Camera | null) => {
-    //TODO: настроить поведение модальных окон: зацикливание табов на модальном окне
-    //TODO как добавить класс родительскому контейнеру?
     document.body.style.overflow = isBuyModalOpened ? '' : 'hidden';
 
     setBuyModalOpened(!isBuyModalOpened);
