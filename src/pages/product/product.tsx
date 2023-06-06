@@ -31,6 +31,21 @@ function Product(): JSX.Element {
     dispatch(getReviewsAction(cameraId));
   }, [cameraId, dispatch, isAddReviewModalOpened]);
 
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Esc' || event.key === 'Escape') {
+        setAddReviewModalOpened(false);
+        setAddReviewSuccessModalOpened(false);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [setAddReviewModalOpened, setAddReviewSuccessModalOpened]);
+
+
   const scrollToTop = (evt: MouseEvent<HTMLAnchorElement>) => {
     //TODO: можно ли оставить обращение к window?
     evt.preventDefault();
@@ -41,7 +56,7 @@ function Product(): JSX.Element {
   };
 
   const handleAddReviewModalShow = useCallback((camera: Camera | null) => {
-    //TODO: настроить поведение модальных окон: закрытие по esc, зацикливание табов на модальном окне
+    //TODO: настроить поведение модальных окон: зацикливание табов на модальном окне
     //TODO как добавить класс родительскому контейнеру?
     document.body.style.overflow = isAddReviewModalOpened ? '' : 'hidden';
 

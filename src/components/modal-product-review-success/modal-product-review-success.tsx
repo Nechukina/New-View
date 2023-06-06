@@ -10,6 +10,8 @@ type ModalProductReviewSuccessProps = {
 function ModalProductReviewSuccess({isOpened, onCloseButtonClick}: ModalProductReviewSuccessProps): JSX.Element {
   const id = useParams().id;
   const cameraId = Number(id);
+
+
   return (
     <div className={clsx('modal', isOpened && 'is-active', 'modal--narrow')}>
       <div className="modal__wrapper">

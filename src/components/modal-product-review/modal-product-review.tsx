@@ -14,20 +14,6 @@ type ModalProductReviewProps = {
 }
 
 function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewSuccess}: ModalProductReviewProps): JSX.Element {
-  // useEffect(() => {
-  //   const handleEsc = (event: KeyboardEvent) => {
-  //     if (event.key === 'Esc' || event.key === 'Escape') {
-  //       // eslint-disable-next-line no-console
-  //       console.log(event);
-  //       onCloseButtonClick(null);
-  //     }
-  //   };
-  //   window.addEventListener('keydown', handleEsc);
-
-  //   return () => {
-  //     window.removeEventListener('keydown', handleEsc);
-  //   };
-  // }, [onCloseButtonClick]);
 
   const dispatch = useAppDispatch();
   const [rate, setRate] = useState(0);
