@@ -77,16 +77,15 @@ export const getReviewsAction = createAsyncThunk<Reviews, string, ThunkOptions>(
   }
 );
 
-export const postAddReviewAction = createAsyncThunk<Reviews, AddReview & {onSuccess: (camera: null) => void}, ThunkOptions>(
+export const postAddReviewAction = createAsyncThunk<Reviews, AddReview, ThunkOptions>(
   'data/postReview',
-async ({onSuccess, cameraId, userName, advantage, disadvantage, review, rating}, { dispatch, extra: api}) => {
-  try {
-    const {data} = await api.post<Reviews>(`${APIRoute.AddReview}`, {cameraId, userName, advantage, disadvantage, review, rating});
-    onSuccess(null);
-    return data;
-  } catch (err) {
-    dispatch(pushNotification({ type: 'error', message: 'Ошибка публикации отзыва' }));
-    throw err;
-  }
-},
+  async ({cameraId, userName, advantage, disadvantage, review, rating}, { dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<Reviews>(`${APIRoute.AddReview}`, {cameraId, userName, advantage, disadvantage, review, rating});
+      return data;
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Ошибка публикации отзыва' }));
+      throw err;
+    }
+  },
 );

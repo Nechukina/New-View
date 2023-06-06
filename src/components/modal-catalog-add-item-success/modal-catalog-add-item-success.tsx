@@ -1,3 +1,4 @@
+
 function ModalCatalogAddItemSuccess(): JSX.Element {
   return (
     <div className="modal is-active modal--narrow">

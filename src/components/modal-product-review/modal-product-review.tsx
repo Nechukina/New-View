@@ -10,9 +10,10 @@ type ModalProductReviewProps = {
   isOpened: boolean;
   product: Camera | null;
   onCloseButtonClick: (camera: null) => void;
+  onAddReviewSuccess: () => void;
 }
 
-function ModalProductReview({isOpened, product, onCloseButtonClick}: ModalProductReviewProps): JSX.Element {
+function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewSuccess}: ModalProductReviewProps): JSX.Element {
   // useEffect(() => {
   //   const handleEsc = (event: KeyboardEvent) => {
   //     if (event.key === 'Esc' || event.key === 'Escape') {
@@ -42,11 +43,18 @@ function ModalProductReview({isOpened, product, onCloseButtonClick}: ModalProduc
 
 
   const onSubmit = (data: AddReview) => {
-    const id = product?.id;
-    const cameraId = Number(id);
-    const rating = Number(data.rating);
-    dispatch(postAddReviewAction({...data, onSuccess: onCloseButtonClick, cameraId, rating}));
-    reset();
+    (async () => {
+      const id = product?.id;
+      const cameraId = Number(id);
+      const rating = Number(data.rating);
+      const action = await dispatch(postAddReviewAction({...data, cameraId, rating}));
+      if(postAddReviewAction.fulfilled.match(action)){
+        onCloseButtonClick(null);
+        onAddReviewSuccess();
+        reset();
+      }
+    })();
+
   };
 
   return (

@@ -13,6 +13,7 @@ import { AppRoute } from '../../const';
 import ModalProductReview from '../../components/modal-product-review/modal-product-review';
 import { Camera } from '../../types/camera';
 import { getProduct } from '../../store/product/product.selectors';
+import ModalProductReviewSuccess from '../../components/modal-product-review-success/modal-product-review-success';
 
 function Product(): JSX.Element {
   const id = useParams().id;
@@ -22,6 +23,7 @@ function Product(): JSX.Element {
 
   const [isAddReviewModalOpened, setAddReviewModalOpened] = useState(false);
   const [product, setProduct] = useState<Camera | null>(null);
+  const [isAddReviewSuccessModalOpened, setAddReviewSuccessModalOpened] = useState(false);
 
   useEffect(() => {
     dispatch(getCameraInfoAction(cameraId));
@@ -47,6 +49,13 @@ function Product(): JSX.Element {
     setProduct(camera);
   }, [isAddReviewModalOpened]);
 
+  const handleAddReviewSuccess = () => {
+    // eslint-disable-next-line no-debugger
+    debugger;
+    document.body.style.overflow = isAddReviewSuccessModalOpened ? '' : 'hidden';
+    setAddReviewSuccessModalOpened(!isAddReviewSuccessModalOpened);
+  };
+
   return (
     <>
       <Helmet>
@@ -71,6 +80,11 @@ function Product(): JSX.Element {
             isOpened={isAddReviewModalOpened}
             product={product}
             onCloseButtonClick={handleAddReviewModalShow}
+            onAddReviewSuccess={handleAddReviewSuccess}
+          />
+          <ModalProductReviewSuccess
+            isOpened={isAddReviewSuccessModalOpened}
+            onCloseButtonClick={handleAddReviewSuccess}
           />
         </main>
         <Link className="up-btn" onClick={scrollToTop} to={generatePath(AppRoute.Product, {id: cameraId.toString()})}>
