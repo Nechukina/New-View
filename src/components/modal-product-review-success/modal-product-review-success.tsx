@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useEffect } from 'react';
 
 type ModalProductReviewSuccessProps = {
   isOpened: boolean;
@@ -10,6 +11,19 @@ type ModalProductReviewSuccessProps = {
 function ModalProductReviewSuccess({isOpened, onCloseButtonClick}: ModalProductReviewSuccessProps): JSX.Element {
   const id = useParams().id;
   const cameraId = Number(id);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Esc' || event.key === 'Escape') {
+        onCloseButtonClick();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [onCloseButtonClick]);
 
 
   return (

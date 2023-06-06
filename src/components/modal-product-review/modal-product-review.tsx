@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { AddReview } from '../../types/review';
 import { postAddReviewAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type ModalProductReviewProps = {
   isOpened: boolean;
@@ -17,6 +17,19 @@ function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewS
 
   const dispatch = useAppDispatch();
   const [rate, setRate] = useState(0);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Esc' || event.key === 'Escape') {
+        onCloseButtonClick(null);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [onCloseButtonClick]);
 
   const {
     register,
