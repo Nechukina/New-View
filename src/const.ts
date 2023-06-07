@@ -4,7 +4,8 @@ export enum AppRoute {
   Basket = '/basket',
   Product = '/product/:id',
   Description = '/product/:id/description',
-  Features = '/product/:id/features'
+  Features = '/product/:id/features',
+  NotFound = '*'
 }
 
 export enum APIRoute {

@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
-import ProductSimilarCard from '../product-similar-card/product-similar-card';
-import { Cameras } from '../../types/camera';
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
 import clsx from 'clsx';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import { useRef, useState } from 'react';
+import { Cameras } from '../../types/camera';
+import ProductSimilarCard from '../product-similar-card/product-similar-card';
+import 'swiper/css';
 
 type ProductSimilarProps = {
   products: Cameras;

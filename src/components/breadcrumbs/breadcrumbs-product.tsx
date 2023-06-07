@@ -1,15 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getProduct } from '../../store/product/product.selectors';
-import Loader from '../loader/loader';
 import { useAppSelector } from '../../hooks';
 
 function BreadcrumbsProduct(): JSX.Element {
   const product = useAppSelector(getProduct);
 
-  if (!product) {
-    return <Loader />;
-  }
+
   return (
     <div className="breadcrumbs">
       <div className="container">
@@ -29,7 +26,7 @@ function BreadcrumbsProduct(): JSX.Element {
             </Link>
           </li>
           <li className="breadcrumbs__item">
-            <span className="breadcrumbs__link breadcrumbs__link--active">{product.name}</span>
+            <span className="breadcrumbs__link breadcrumbs__link--active">{product?.name}</span>
           </li>
         </ul>
       </div>

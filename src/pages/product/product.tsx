@@ -10,6 +10,7 @@ import { getCameraInfoAction, getReviewsAction, getSimilarProductsAction } from 
 import { getProduct } from '../../store/product/product.selectors';
 import { getSimilarProducts } from '../../store/similar-products/similar-products.selectors';
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import ModalProductReview from '../../components/modal-product-review/modal-product-review';
 import ModalProductReviewSuccess from '../../components/modal-product-review-success/modal-product-review-success';
 import ProductInfo from '../../components/product-info/product-info';
@@ -45,25 +46,29 @@ function Product(): JSX.Element {
 
 
   const onAddReviewModalShow = useCallback(((camera: Camera | null) => {
-    document.body.style.overflow = '';
+    document.body.style.overflow = 'hidden';
     setAddReviewModalOpened(true);
     setProduct(camera);
   }),[setAddReviewModalOpened]);
 
   const onAddReviewModalHide = useCallback(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = '';
     setAddReviewModalOpened(false);
   },[setAddReviewModalOpened]);
 
   const onAddReviewModalSuccessShow = useCallback(() => {
-    document.body.style.overflow = '';
+    document.body.style.overflow = 'hidden';
     setAddReviewSuccessModalOpened(true);
   },[setAddReviewSuccessModalOpened]);
 
   const onAddReviewModalSuccessHide = useCallback(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = '';
     setAddReviewSuccessModalOpened(false);
   },[setAddReviewSuccessModalOpened]);
+
+  if(!choosedProduct) {
+    return <Loader />;
+  }
 
 
   return (
@@ -75,15 +80,15 @@ function Product(): JSX.Element {
         <Header />
         <main>
           <div className="page-content">
-            <BreadcrumbsProduct />
+            {choosedProduct && <BreadcrumbsProduct />}
             <div className="page-content__section">
-              <ProductInfo />
+              {choosedProduct && <ProductInfo />}
             </div>
             <div className="page-content__section">
               {similarProducts.length && <ProductSimilar products={similarProducts} />}
             </div>
             <div className="page-content__section">
-              <ReviewBlock camera={choosedProduct as Camera} onAddReviewButtonClick={onAddReviewModalShow}/>
+              <ReviewBlock camera={choosedProduct} onAddReviewButtonClick={onAddReviewModalShow}/>
             </div>
           </div>
           <ReactFocusLock disabled={!isAddReviewModalOpened} returnFocus>

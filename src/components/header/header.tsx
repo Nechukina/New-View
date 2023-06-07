@@ -14,11 +14,14 @@ function Header(): JSX.Element {
           <ul className="main-nav__list">
             <li className="main-nav__item"><Link className="main-nav__link" to={AppRoute.Main}>Каталог</Link>
             </li>
-            <li className="main-nav__item"><a className="main-nav__link" href="#todo">Гарантии</a>
+            <li className="main-nav__item">
+              <Link className="main-nav__link" to={AppRoute.NotFound}>Гарантии</Link>
             </li>
-            <li className="main-nav__item"><a className="main-nav__link" href="#todo">Доставка</a>
+            <li className="main-nav__item">
+              <Link className="main-nav__link" to={AppRoute.NotFound}>Доставка</Link>
             </li>
-            <li className="main-nav__item"><a className="main-nav__link" href="#todo">О компании</a>
+            <li className="main-nav__item">
+              <Link className="main-nav__link" to={AppRoute.NotFound}>О компании</Link>
             </li>
           </ul>
         </nav>
