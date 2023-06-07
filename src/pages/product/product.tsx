@@ -2,12 +2,12 @@ import { useEffect, MouseEvent, useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import ReactFocusLock from 'react-focus-lock';
-import { AppRoute } from '../../const';
+import { AppRoute, Status } from '../../const';
 import BreadcrumbsProduct from '../../components/breadcrumbs/breadcrumbs-product';
 import { Camera } from '../../types/camera';
 import Footer from '../../components/footer/footer';
 import { getCameraInfoAction, getReviewsAction, getSimilarProductsAction } from '../../store/api-actions';
-import { getProduct } from '../../store/product/product.selectors';
+import { getProduct, getProductStatus } from '../../store/product/product.selectors';
 import { getSimilarProducts } from '../../store/similar-products/similar-products.selectors';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
@@ -24,16 +24,27 @@ function Product(): JSX.Element {
   const dispatch = useAppDispatch();
   const choosedProduct = useAppSelector(getProduct);
   const similarProducts = useAppSelector(getSimilarProducts);
+  const productStatus = useAppSelector(getProductStatus);
 
   const [isAddReviewModalOpened, setAddReviewModalOpened] = useState(false);
   const [product, setProduct] = useState<Camera | null>(null);
   const [isAddReviewSuccessModalOpened, setAddReviewSuccessModalOpened] = useState(false);
 
   useEffect(() => {
-    dispatch(getCameraInfoAction(cameraId));
-    dispatch(getSimilarProductsAction(cameraId));
-    dispatch(getReviewsAction(cameraId));
-  }, [cameraId, dispatch, isAddReviewModalOpened]);
+    let isMounted = true;
+
+    if (isMounted) {
+      if(productStatus === Status.Idle){
+        dispatch(getCameraInfoAction(cameraId));
+        dispatch(getSimilarProductsAction(cameraId));
+        dispatch(getReviewsAction(cameraId));
+      }
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [cameraId, dispatch, isAddReviewModalOpened, productStatus]);
 
 
   const scrollToTop = (evt: MouseEvent<HTMLAnchorElement>) => {
@@ -45,23 +56,23 @@ function Product(): JSX.Element {
   };
 
 
-  const onAddReviewModalShow = useCallback(((camera: Camera | null) => {
+  const handleAddReviewModalShow = useCallback(((camera: Camera | null) => {
     document.body.style.overflow = 'hidden';
     setAddReviewModalOpened(true);
     setProduct(camera);
   }),[setAddReviewModalOpened]);
 
-  const onAddReviewModalHide = useCallback(() => {
+  const handleAddReviewModalHide = useCallback(() => {
     document.body.style.overflow = '';
     setAddReviewModalOpened(false);
   },[setAddReviewModalOpened]);
 
-  const onAddReviewModalSuccessShow = useCallback(() => {
+  const handleAddReviewModalSuccessShow = useCallback(() => {
     document.body.style.overflow = 'hidden';
     setAddReviewSuccessModalOpened(true);
   },[setAddReviewSuccessModalOpened]);
 
-  const onAddReviewModalSuccessHide = useCallback(() => {
+  const handleAddReviewModalSuccessHide = useCallback(() => {
     document.body.style.overflow = '';
     setAddReviewSuccessModalOpened(false);
   },[setAddReviewSuccessModalOpened]);
@@ -88,21 +99,21 @@ function Product(): JSX.Element {
               {similarProducts.length && <ProductSimilar products={similarProducts} />}
             </div>
             <div className="page-content__section">
-              <ReviewBlock camera={choosedProduct} onAddReviewButtonClick={onAddReviewModalShow}/>
+              <ReviewBlock camera={choosedProduct} onAddReviewButtonClick={handleAddReviewModalShow}/>
             </div>
           </div>
           <ReactFocusLock disabled={!isAddReviewModalOpened} returnFocus>
             <ModalProductReview
               isOpened={isAddReviewModalOpened}
               product={product}
-              onCloseButtonClick={onAddReviewModalHide}
-              onAddReviewSuccess={onAddReviewModalSuccessShow}
+              onCloseButtonClick={handleAddReviewModalHide}
+              onAddReviewSuccess={handleAddReviewModalSuccessShow}
             />
           </ReactFocusLock>
           <ReactFocusLock disabled={!isAddReviewSuccessModalOpened} returnFocus>
             <ModalProductReviewSuccess
               isOpened={isAddReviewSuccessModalOpened}
-              onCloseButtonClick={onAddReviewModalSuccessHide}
+              onCloseButtonClick={handleAddReviewModalSuccessHide}
             />
           </ReactFocusLock>
         </main>

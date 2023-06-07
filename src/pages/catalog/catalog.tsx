@@ -45,10 +45,18 @@ function Catalog(): JSX.Element {
   }, [isBuyModalOpened]);
 
   useEffect(() => {
-    if(camerasStatus === Status.Idle) {
-      dispatch(getCatalogAction());
-      dispatch(getPromoAction());
+    let isMounted = true;
+
+    if (isMounted) {
+      if(camerasStatus === Status.Idle) {
+        dispatch(getCatalogAction());
+        dispatch(getPromoAction());
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [camerasStatus, dispatch]);
 
   if (camerasStatus === Status.Idle || camerasStatus === Status.Loading || promoStatus === Status.Idle || promoStatus === Status.Loading){

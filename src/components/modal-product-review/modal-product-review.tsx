@@ -37,7 +37,7 @@ function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewS
     formState: { errors },
     reset
   } = useForm<AddReview>({
-    mode: 'onChange'
+    mode: 'onSubmit'
   });
 
 
