@@ -15,12 +15,14 @@ import ProductInfo from '../../components/product-info/product-info';
 import ProductSimilar from '../../components/product-similar/product-similar';
 import ReviewBlock from '../../components/review-block/review-block';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getSimilarProducts } from '../../store/similar-products/similar-products.selectors';
 
 function Product(): JSX.Element {
   const id = useParams().id;
   const cameraId = String(id);
   const dispatch = useAppDispatch();
   const choosedProduct = useAppSelector(getProduct);
+  const similarProducts = useAppSelector(getSimilarProducts);
 
   const [isAddReviewModalOpened, setAddReviewModalOpened] = useState(false);
   const [product, setProduct] = useState<Camera | null>(null);
@@ -68,7 +70,7 @@ function Product(): JSX.Element {
               <ProductInfo />
             </div>
             <div className="page-content__section">
-              <ProductSimilar />
+              {similarProducts.length && <ProductSimilar products={similarProducts} />}
             </div>
             <div className="page-content__section">
               <ReviewBlock camera={choosedProduct as Camera} onAddReviewButtonClick={handleAddReviewModalShow}/>
