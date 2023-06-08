@@ -61,7 +61,7 @@ export const makeFakePromo = () : PromoCamera => ({
 
 export const makeFakeNotification = (): Notification => ({
   id: random.alpha({count: 10}),
-  type: random.word('error, success, info, warning'),
+  type: random.word(),
   message: random.words(2),
   duration: datatype.number({min: 1, max: 15}),
 } as Notification);
