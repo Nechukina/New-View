@@ -4,7 +4,7 @@ import { Camera, Cameras } from '../types/camera';
 
 
 const MOCK_DEFAULT_NUMBER = 1;
-const CAMERAS_AMOUNT = 15;
+const CAMERAS_AMOUNT = 30;
 
 export const makeFakeCamera = (id = MOCK_DEFAULT_NUMBER):Camera=>({
   id,
@@ -27,7 +27,7 @@ export const makeFakeCameras = (amount = CAMERAS_AMOUNT):Cameras=> Array.from({l
 export const makeFakeReview = (): Review => ({
   id: random.alpha({count: 36}),
   createAt: date.recent().toISOString(),
-  cameraId: datatype.number({min: 1, max: 15}),
+  cameraId: datatype.number({min: 1, max: 30}),
   userName: name.firstName(),
   advantage: lorem.sentences(1),
   disadvantage: lorem.sentences(1),

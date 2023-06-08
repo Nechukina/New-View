@@ -17,6 +17,7 @@ import ProductInfo from '../../components/product-info/product-info';
 import ProductSimilar from '../../components/product-similar/product-similar';
 import ReviewBlock from '../../components/review-block/review-block';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import ScrollToTop from '../../utils/scroll-to-top';
 
 function Product(): JSX.Element {
   const id = useParams().id;
@@ -90,6 +91,7 @@ function Product(): JSX.Element {
       <div className="wrapper">
         <Header />
         <main>
+          <ScrollToTop />
           <div className="page-content">
             {choosedProduct && <BreadcrumbsProduct />}
             <div className="page-content__section">
