@@ -1,10 +1,13 @@
 import {datatype, random, image, lorem, name, date} from 'faker';
-import { AddReview, Review } from '../types/review';
+import { AddReview, Review, Reviews } from '../types/review';
 import { Camera, Cameras } from '../types/camera';
+import { PromoCamera } from '../types/promo';
+import { Notification } from '../types/notifications';
 
 
 const MOCK_DEFAULT_NUMBER = 1;
 const CAMERAS_AMOUNT = 30;
+const REVIEWS_AMOUNT = 10;
 
 export const makeFakeCamera = (id = MOCK_DEFAULT_NUMBER):Camera=>({
   id,
@@ -19,7 +22,7 @@ export const makeFakeCamera = (id = MOCK_DEFAULT_NUMBER):Camera=>({
   previewImg: image.technics(),
   previewImg2x: image.abstract(),
   previewImgWebp: image.animals(),
-  previewImgWebp2x: image.city(),
+  previewImgWebp2x: image.city()
 } as Camera);
 
 export const makeFakeCameras = (amount = CAMERAS_AMOUNT):Cameras=> Array.from({length:amount},(_, i)=> makeFakeCamera(i + 1));
@@ -35,6 +38,9 @@ export const makeFakeReview = (): Review => ({
   rating: datatype.number({min: 1, max: 5})
 } as Review);
 
+export const makeFakeReviews = (amount = REVIEWS_AMOUNT):Reviews=> Array.from({length:amount},(_)=> makeFakeReview());
+
+
 export const makeFakeAddReview = (): AddReview => ({
   cameraId: datatype.number({min: 1, max: 15}),
   userName: name.firstName(),
@@ -43,3 +49,20 @@ export const makeFakeAddReview = (): AddReview => ({
   review: lorem.sentences(2),
   rating: datatype.number({min: 1, max: 5})
 } as AddReview);
+
+export const makeFakePromo = () : PromoCamera => ({
+  id: datatype.number({min: 1, max: 15}),
+  name: random.words(2),
+  previewImg: image.technics(),
+  previewImg2x: image.abstract(),
+  previewImgWebp: image.animals(),
+  previewImgWebp2x: image.city()
+} as PromoCamera);
+
+export const makeFakeNotification = (): Notification => ({
+  id: random.alpha({count: 10}),
+  type: random.word('error, success, info, warning'),
+  message: random.words(2),
+  duration: datatype.number({min: 1, max: 15}),
+} as Notification);
+

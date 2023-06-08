@@ -9,7 +9,7 @@ export type AddReviewSlice = {
   status: Status;
 };
 
-const initialState: AddReviewSlice = {
+export const initialState: AddReviewSlice = {
   reviews: [],
   status: Status.Idle
 };

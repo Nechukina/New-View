@@ -6,7 +6,7 @@ export type NotificationsSlice = {
     notifications: Notification[];
   }
 
-const initialState: NotificationsSlice = {
+export const initialState: NotificationsSlice = {
   notifications: []
 };
 

@@ -9,7 +9,7 @@ export type ProductSlice = {
   status: Status;
 };
 
-const initialState: ProductSlice = {
+export const initialState: ProductSlice = {
   product: null,
   status: Status.Idle
 };

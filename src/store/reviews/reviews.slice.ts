@@ -8,7 +8,7 @@ export type ReviewsSlice = {
   status: Status;
 };
 
-const initialState: ReviewsSlice = {
+export const initialState: ReviewsSlice = {
   reviews: [],
   status: Status.Idle
 };

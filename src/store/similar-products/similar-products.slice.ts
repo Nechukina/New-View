@@ -9,7 +9,7 @@ export type SimilarProductsSlice = {
   status: Status;
 };
 
-const initialState: SimilarProductsSlice = {
+export const initialState: SimilarProductsSlice = {
   similarProducts: [],
   status: Status.Idle
 };
