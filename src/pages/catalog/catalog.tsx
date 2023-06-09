@@ -81,7 +81,7 @@ function Catalog(): JSX.Element {
       </Helmet>
       <div className="wrapper">
         <Header />
-        <main>
+        <main data-testid="catalog-page">
           <Banner />
           <div className="page-content">
             <Breadcrumbs />

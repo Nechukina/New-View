@@ -5,13 +5,12 @@ import HistoryRouter from '../history-router/history-router';
 
 const history = createMemoryHistory();
 
-const onClick = (e: Event) => (e);
-describe('Component: loader', () => {
+describe('Component: modal product review success', () => {
   it('should render correctly', () => {
 
     render(
       <HistoryRouter history={history}>
-        <ModalProductReviewSuccess isOpened onCloseButtonClick={() => onClick}/>
+        <ModalProductReviewSuccess isOpened onCloseButtonClick={jest.fn()}/>
       </HistoryRouter>
     );
 

@@ -8,7 +8,7 @@ type ProductSimilarCardProps = {
 
 function ProductSimilarCard({product}: ProductSimilarCardProps): JSX.Element {
   return (
-    <div className="product-card is-active" style={{display: 'block', width: '100%', margin: '0'}}>
+    <div className="product-card is-active" style={{display: 'block', width: '100%', margin: '0'}} data-testid="similar-card">
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${product.previewImgWebp}, /${product.previewImgWebp2x} 2x`}/>

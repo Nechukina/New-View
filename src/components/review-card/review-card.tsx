@@ -8,7 +8,7 @@ type ReviewCardProps = {
 
 function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <li className="review-card">
+    <li className="review-card" data-testid="review-card">
       <div className="review-card__head">
         <p className="title title--h4">{review.userName}</p>
         <time

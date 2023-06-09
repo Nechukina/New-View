@@ -14,7 +14,7 @@ function Basket(): JSX.Element {
       </Helmet>
       <div className="wrapper">
         <Header />
-        <main>
+        <main data-testid="basket-page">
           <div className="page-content">
             <BreadcrumbsBasket />
             <section className="basket">

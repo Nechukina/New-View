@@ -57,7 +57,7 @@ function ModalProductReview({isOpened, product, onCloseButtonClick, onAddReviewS
   };
 
   return (
-    <div className={clsx('modal', isOpened && 'is-active')}>
+    <div className={clsx('modal', isOpened && 'is-active')} data-testid="modal-product-review">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={() => onCloseButtonClick(null)}></div>
         <div className="modal__content">

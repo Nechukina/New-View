@@ -12,7 +12,7 @@ function Page404(): JSX.Element {
       </Helmet>
       <div className="wrapper">
         <Header />
-        <main>
+        <main data-testid="page-404">
           <section className="catalog">
             <div className="container" style={{marginTop: 100}}>
               <h1 className="title title--h2" style={{textAlign: 'center'}}>Упс! Что-то пошло не так...</h1>

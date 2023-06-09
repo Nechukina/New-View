@@ -18,7 +18,7 @@ function ProductTabs({ camera }: ProductTabsProps): JSX.Element {
   };
 
   return (
-    <div className="tabs product__tabs">
+    <div className="tabs product__tabs" data-testid="tabs">
       <div className="tabs__controls product__tabs-controls">
         <Link to={generatePath(AppRoute.Features, {id: camera.id.toString()})}>
           <button

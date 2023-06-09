@@ -10,7 +10,7 @@ function ProductInfo(): JSX.Element {
     return <Loader />;
   }
   return (
-    <section className="product">
+    <section className="product" data-testid="product-info">
       <div className="container">
         <div className="product__img">
           <picture>

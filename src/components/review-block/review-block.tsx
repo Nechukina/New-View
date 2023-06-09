@@ -17,7 +17,7 @@ function ReviewBlock({camera, onAddReviewButtonClick}: ReviewBlockProps): JSX.El
 
 
   return (
-    <section className="review-block">
+    <section className="review-block" data-testid="review-block">
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>

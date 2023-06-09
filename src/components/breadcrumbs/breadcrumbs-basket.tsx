@@ -3,7 +3,7 @@ import { AppRoute } from '../../const';
 
 function BreadcrumbsBasket(): JSX.Element {
   return (
-    <div className="breadcrumbs">
+    <div className="breadcrumbs" data-testid='breadcrumbs-basket'>
       <div className="container">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">

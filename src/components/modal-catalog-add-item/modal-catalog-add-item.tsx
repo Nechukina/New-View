@@ -13,7 +13,7 @@ function ModalCatalogAddItem({isOpened, product, onCloseButtonClick}: ModalCatal
     return <div></div>;
   }
   return (
-    <div className={clsx('modal', isOpened && 'is-active')}>
+    <div className={clsx('modal', isOpened && 'is-active')} data-testid="modal-add-item">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={() => onCloseButtonClick(null)}></div>
         <div className="modal__content">

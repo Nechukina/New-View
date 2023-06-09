@@ -11,7 +11,7 @@ function ProductCard({camera, onBuyButtonClick}: ProductCardProps): JSX.Element 
 
 
   return (
-    <div className="product-card">
+    <div className="product-card" data-testid="product-card">
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${camera.previewImgWebp}, /${camera.previewImgWebp2x} 2x`}/>

@@ -8,7 +8,7 @@ function BreadcrumbsProduct(): JSX.Element {
 
 
   return (
-    <div className="breadcrumbs">
+    <div className="breadcrumbs" data-testid='breadcrumbs-product'>
       <div className="container">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">
