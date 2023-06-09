@@ -1,7 +1,7 @@
 
 function ModalCatalogAddItemSuccess(): JSX.Element {
   return (
-    <div className="modal is-active modal--narrow">
+    <div className="modal is-active modal--narrow" data-testid='modal-add-to-cart-success'>
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>
         <div className="modal__content">

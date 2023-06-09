@@ -1,6 +1,6 @@
 function BasketItem(): JSX.Element {
   return (
-    <li className="basket-item">
+    <li className="basket-item" data-testid='basket-item'>
       <div className="basket-item__img">
         <picture>
           <source type="image/webp" srcSet="img/content/img9.webp, img/content/img9@2x.webp 2x"/>

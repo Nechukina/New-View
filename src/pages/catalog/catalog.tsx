@@ -25,13 +25,8 @@ function Catalog(): JSX.Element {
   const camerasStatus = useAppSelector(getCamerasStatus);
   const promoStatus = useAppSelector(getPromoStatus);
 
-
   const param = useParams().page;
   const currentPage = Number(param?.replace(/[^\d]/g, ''));
-
-  const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
-  const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
-
 
   const [isBuyModalOpened, setBuyModalOpened] = useState(false);
   const [product, setProduct] = useState<Camera | null>(null);
@@ -63,9 +58,17 @@ function Catalog(): JSX.Element {
     return <Loader />;
   }
 
-  if (currentPage > pageCount || !currentPage) {
+  if (!cameras) {
     return <Page404 />;
   }
+
+  const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
+  const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
+
+  if (currentPage > pageCount || !currentPage || !cameras) {
+    return <Page404 />;
+  }
+
 
   return (
     <>
