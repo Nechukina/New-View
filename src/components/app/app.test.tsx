@@ -43,7 +43,7 @@ const fakeApp = (
 describe('Application Routing', () => {
   it('should render "Catalog" when user navigate to "/"', () => {
     // eslint-disable-next-line no-console
-    console.log();
+    console.log(store.getState()[NameSpace.Cameras]);
     history.push(AppRoute.Main);
     render(fakeApp);
 

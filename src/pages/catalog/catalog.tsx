@@ -26,7 +26,11 @@ function Catalog(): JSX.Element {
   const promoStatus = useAppSelector(getPromoStatus);
 
   const param = useParams().page;
-  const currentPage = Number(param?.replace(/[^\d]/g, ''));
+  let currentPage = Number(param?.replace(/[^\d]/g, ''));
+
+  if (!currentPage) {
+    currentPage = 1;
+  }
 
   const [isBuyModalOpened, setBuyModalOpened] = useState(false);
   const [product, setProduct] = useState<Camera | null>(null);

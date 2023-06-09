@@ -93,6 +93,14 @@
   "jest": {
     "moduleNameMapper": {
       "swiper/css": "swiper/swiper.min.css"
-    }
-  }
+    },
+  
+    "watchPathIgnorePatterns": [
+      "node_modules",
+      ".jest-test-results.json"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(swiper|ssr-window|dom7))"
+    ]
+}
 }
