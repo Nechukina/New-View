@@ -1,6 +1,6 @@
 import { catalogSlice, initialState } from './catalog.slice';
 import { getCatalogAction } from '../api-actions';
-import { makeFakeCamera } from '../../utils/mocks';
+import { makeFakeCameras } from '../../utils/mocks';
 import { Status } from '../../const';
 
 
@@ -11,7 +11,7 @@ describe('Reducer: catalogSlice', () => {
   });
 
   it('should return array of cameras objects', () => {
-    const catalog = [makeFakeCamera(), makeFakeCamera()];
+    const catalog = makeFakeCameras();
     expect(catalogSlice.reducer(initialState, {
       type: getCatalogAction.fulfilled.type,
       payload: catalog

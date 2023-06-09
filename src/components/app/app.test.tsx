@@ -24,7 +24,7 @@ const store = mockStore({
   [NameSpace.Cameras]: mockCameras,
   [NameSpace.Promo]: mockPromo,
   [NameSpace.Product]: mockProduct,
-  [NameSpace.Similar] : makeFakeCameras,
+  [NameSpace.Similar] : mockCameras,
   [NameSpace.Notification]: [],
   [NameSpace.Reviews]: mockReviews,
   [NameSpace.Review]: mockReview
@@ -41,7 +41,9 @@ const fakeApp = (
 );
 
 describe('Application Routing', () => {
-  it('should render "Main" when user navigate to "/"', () => {
+  it('should render "Catalog" when user navigate to "/"', () => {
+    // eslint-disable-next-line no-console
+    console.log();
     history.push(AppRoute.Main);
     render(fakeApp);
 
