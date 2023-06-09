@@ -90,7 +90,7 @@ function Product(): JSX.Element {
       </Helmet>
       <div className="wrapper">
         <Header />
-        <main>
+        <main data-testid='product-page'>
           <ScrollToTop />
           <div className="page-content">
             {choosedProduct && <BreadcrumbsProduct />}
