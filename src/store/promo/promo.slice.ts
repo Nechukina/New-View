@@ -7,17 +7,23 @@ import { PromoCamera } from '../../types/promo';
 export type PromoSlice = {
   camera: PromoCamera | null;
   status: Status;
+  description: string | null;
   };
 
 export const initialState: PromoSlice = {
   camera: null,
-  status: Status.Idle
+  status: Status.Idle,
+  description: null,
 };
 
 export const promoSlice = createSlice({
   name: NameSpace.Promo,
   initialState,
-  reducers: {},
+  reducers: {
+    setDescription(state, action: { payload: string }) {
+      state.description = action.payload;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(getPromoAction.pending, (state) => {
@@ -32,3 +38,6 @@ export const promoSlice = createSlice({
       });
   }
 });
+
+export const { setDescription } = promoSlice.actions;
+

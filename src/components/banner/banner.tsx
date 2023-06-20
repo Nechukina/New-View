@@ -1,20 +1,19 @@
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { getPromo } from '../../store/promo/promo.selectors';
+import { getPromo, getPromoDescription } from '../../store/promo/promo.selectors';
 import { useAppSelector } from '../../hooks';
 import Loader from '../loader/loader';
-import { getCameras } from '../../store/catalog/catalog.selectors';
 
 function Banner(): JSX.Element {
   const promo = useAppSelector(getPromo);
-  const cameras = useAppSelector(getCameras);
+  const description = useAppSelector(getPromoDescription);
 
   if (!promo) {
     return (
       <Loader />
     );
   }
-  const description = cameras.find((camera) => camera.name === promo.name)?.description;
+
   return (
     <div className="banner">
       <picture>

@@ -36,7 +36,7 @@ function ProductSimilar({products}: ProductSimilarProps): JSX.Element {
           >
             {products.map((product) => (
               <SwiperSlide key={product.id}>
-                <ProductSimilarCard product={product}/>
+                <ProductSimilarCard product={product} style={{width: '100%', margin: 0}}/>
               </SwiperSlide>
             ))}
           </Swiper>

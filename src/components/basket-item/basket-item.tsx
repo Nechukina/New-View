@@ -3,8 +3,8 @@ function BasketItem(): JSX.Element {
     <li className="basket-item" data-testid='basket-item'>
       <div className="basket-item__img">
         <picture>
-          <source type="image/webp" srcSet="img/content/img9.webp, img/content/img9@2x.webp 2x"/>
-          <img src="img/content/img9.jpg" srcSet="img/content/img9@2x.jpg 2x" width="140" height="120" alt="Фотоаппарат «Орлёнок»"/>
+          <source type="image/webp" srcSet="img/content/amazing-go.webp, img/content/amazing-go@2x.webp 2x"/>
+          <img src="img/content/amazing-go.jpg" srcSet="img/content/amazing-go@2x.jpg 2x" width="140" height="120" alt="Фотоаппарат «Орлёнок»"/>
         </picture>
       </div>
       <div className="basket-item__description">

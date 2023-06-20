@@ -40,26 +40,25 @@ export enum Status {
 }
 
 export enum CameraType {
-  Коллекционная = 'Коллекционная',
-  Моментальная = 'Моментальная',
-  Цифровая = 'Цифровая',
-  Плёночная = 'Плёночная',
+  Collection = 'Коллекционная',
+  Instant = 'Моментальная',
+  Digital = 'Цифровая',
+  Film = 'Плёночная',
 }
 
 export enum CameraCategory {
-  Видеокамера = 'Видеокамера',
-  Фотоаппарат = 'Фотоаппарат',
+  Video = 'Видеокамера',
+  Photo = 'Фотоаппарат',
 }
 
 export enum CameraLevel {
-  Нулевой = 'Нулевой',
-  Любительский = 'Любительский',
-  Профессиональный = 'Профессиональный',
+  Zero = 'Нулевой',
+  Amature = 'Любительский',
+  Professional = 'Профессиональный',
 }
 
 export const CAMERAS_PER_PAGE = 9;
 
 export const DEFAULT_REVIEWS_COUNT = 3;
 
-export const SIMILAR_CAMERAS_PER_VIEW = 3;
 

@@ -3,12 +3,12 @@ import { Helmet } from 'react-helmet-async';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import ReactFocusLock from 'react-focus-lock';
 import { AppRoute, Status } from '../../const';
-import BreadcrumbsProduct from '../../components/breadcrumbs/breadcrumbs-product';
+import BreadcrumbsProduct from '../../components/breadcrumbs-product/breadcrumbs-product';
 import { Camera } from '../../types/camera';
 import Footer from '../../components/footer/footer';
 import { getCameraInfoAction, getReviewsAction, getSimilarProductsAction } from '../../store/api-actions';
 import { getProduct, getProductStatus } from '../../store/product/product.selectors';
-import { getSimilarProducts } from '../../store/similar-products/similar-products.selectors';
+import { getSimilarProducts, getSimilarProductsStatus } from '../../store/similar-products/similar-products.selectors';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import ModalProductReview from '../../components/modal-product-review/modal-product-review';
@@ -18,6 +18,7 @@ import ProductSimilar from '../../components/product-similar/product-similar';
 import ReviewBlock from '../../components/review-block/review-block';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import ScrollToTop from '../../utils/scroll-to-top';
+import { getReviewsStatus } from '../../store/reviews/reviews.selectors';
 
 function Product(): JSX.Element {
   const id = useParams().id;
@@ -26,6 +27,8 @@ function Product(): JSX.Element {
   const choosedProduct = useAppSelector(getProduct);
   const similarProducts = useAppSelector(getSimilarProducts);
   const productStatus = useAppSelector(getProductStatus);
+  const similarProductStatus = useAppSelector(getSimilarProductsStatus);
+  const reviewsStatus = useAppSelector(getReviewsStatus);
 
   const [isAddReviewModalOpened, setAddReviewModalOpened] = useState(false);
   const [product, setProduct] = useState<Camera | null>(null);
@@ -35,17 +38,18 @@ function Product(): JSX.Element {
     let isMounted = true;
 
     if (isMounted) {
-      if(productStatus === Status.Idle){
-        dispatch(getCameraInfoAction(cameraId));
-        dispatch(getSimilarProductsAction(cameraId));
-        dispatch(getReviewsAction(cameraId));
+      if(!cameraId){
+        return;
       }
+      dispatch(getCameraInfoAction(cameraId));
+      dispatch(getSimilarProductsAction(cameraId));
+      dispatch(getReviewsAction(cameraId));
     }
 
     return () => {
       isMounted = false;
     };
-  }, [cameraId, dispatch, isAddReviewModalOpened, productStatus]);
+  }, [cameraId, dispatch, isAddReviewModalOpened]);
 
 
   const scrollToTop = (evt: MouseEvent<HTMLAnchorElement>) => {
@@ -78,7 +82,7 @@ function Product(): JSX.Element {
     setAddReviewSuccessModalOpened(false);
   },[setAddReviewSuccessModalOpened]);
 
-  if(!choosedProduct) {
+  if(!choosedProduct || productStatus === Status.Loading || similarProductStatus === Status.Loading || reviewsStatus === Status.Loading) {
     return <Loader />;
   }
 

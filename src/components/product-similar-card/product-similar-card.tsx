@@ -1,14 +1,17 @@
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
+import { CSSProperties } from 'react';
 
 type ProductSimilarCardProps = {
   product: Camera;
+  style?: CSSProperties;
+
 }
 
-function ProductSimilarCard({product}: ProductSimilarCardProps): JSX.Element {
+function ProductSimilarCard({product, style}: ProductSimilarCardProps): JSX.Element {
   return (
-    <div className="product-card is-active" style={{display: 'block', width: '100%', margin: '0'}} data-testid="similar-card">
+    <div className="product-card is-active" style={style} data-testid="similar-card">
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${product.previewImgWebp}, /${product.previewImgWebp2x} 2x`}/>

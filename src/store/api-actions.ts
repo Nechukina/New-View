@@ -6,6 +6,7 @@ import { pushNotification } from './notifications/notifications.slice';
 import { PromoCamera } from '../types/promo';
 import { generatePath } from 'react-router-dom';
 import { AddReview, Reviews } from '../types/review';
+import { setDescription } from './promo/promo.slice';
 
 
 export const getCatalogAction = createAsyncThunk<Cameras, undefined, ThunkOptions>(
@@ -24,9 +25,15 @@ export const getCatalogAction = createAsyncThunk<Cameras, undefined, ThunkOption
 
 export const getPromoAction = createAsyncThunk<PromoCamera, undefined, ThunkOptions>(
   'data/getPromo',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { dispatch, extra: api, getState}) => {
     try {
       const { data } = await api.get<PromoCamera>(APIRoute.Promo);
+
+      const {catalog} = getState().CAMERAS;
+
+      const description = catalog.find((camera) => camera.name === data.name)?.description;
+
+      dispatch(setDescription(description as string));
 
       return data;
     } catch (err) {
