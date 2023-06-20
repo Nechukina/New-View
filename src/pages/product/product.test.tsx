@@ -29,6 +29,8 @@ const history = createMemoryHistory();
 
 describe('Page: Product', () => {
   it('should render correctly', () => {
+    window.scrollTo = jest.fn();
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
