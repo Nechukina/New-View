@@ -34,6 +34,8 @@ export const getPromoAction = createAsyncThunk<PromoCamera, undefined, ThunkOpti
       const description = catalog.find((camera) => camera.name === data.name)?.description;
 
       dispatch(setDescription(description as string));
+      // eslint-disable-next-line no-console
+      console.log(catalog);
 
       return data;
     } catch (err) {
