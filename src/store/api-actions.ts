@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkOptions } from '../types/state';
 import { Camera, Cameras } from '../types/camera';
-import { APIRoute, Status } from '../const';
+import { APIRoute } from '../const';
 import { pushNotification } from './notifications/notifications.slice';
 import { PromoCamera } from '../types/promo';
 import { generatePath } from 'react-router-dom';
@@ -14,8 +14,6 @@ export const getCatalogAction = createAsyncThunk<Cameras, undefined, ThunkOption
   async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Cameras>(APIRoute.Catalog);
-      // eslint-disable-next-line no-console
-      console.log(data);
 
       return data;
     } catch (err) {
@@ -31,15 +29,11 @@ export const getPromoAction = createAsyncThunk<PromoCamera , undefined, ThunkOpt
     try {
       const { data } = await api.get<PromoCamera>(APIRoute.Promo);
 
-      const {status} = getState().CAMERAS;
-      if(status === Status.Success){
-        const {catalog} = getState().CAMERAS;
+      const {catalog} = getState().CAMERAS;
 
-        const description = catalog.find((camera) => camera.name === data.name)?.description;
+      const description = catalog.find((camera) => camera.name === data.name)?.description;
 
-        dispatch(setDescription(description as string));
-
-      }
+      dispatch(setDescription(description as string));
 
       return data;
     } catch (err) {

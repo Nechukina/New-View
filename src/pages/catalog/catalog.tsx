@@ -49,7 +49,10 @@ function Catalog(): JSX.Element {
     if (isMounted) {
       if(camerasStatus === Status.Idle) {
         dispatch(getCatalogAction());
+      }
+      if(camerasStatus === Status.Success){
         dispatch(getPromoAction());
+
       }
     }
 
