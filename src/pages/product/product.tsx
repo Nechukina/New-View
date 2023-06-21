@@ -49,7 +49,7 @@ function Product(): JSX.Element {
     return () => {
       isMounted = false;
     };
-  }, [cameraId, dispatch, isAddReviewModalOpened]);
+  }, [cameraId, dispatch]);
 
 
   const scrollToTop = (evt: MouseEvent<HTMLAnchorElement>) => {
