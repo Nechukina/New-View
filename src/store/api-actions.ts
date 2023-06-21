@@ -5,7 +5,7 @@ import { APIRoute } from '../const';
 import { pushNotification } from './notifications/notifications.slice';
 import { PromoCamera } from '../types/promo';
 import { generatePath } from 'react-router-dom';
-import { AddReview, Reviews } from '../types/review';
+import { AddReview, Review, Reviews } from '../types/review';
 import { setDescription } from './promo/promo.slice';
 
 
@@ -84,11 +84,11 @@ export const getReviewsAction = createAsyncThunk<Reviews, string, ThunkOptions>(
   }
 );
 
-export const postAddReviewAction = createAsyncThunk<Reviews, AddReview, ThunkOptions>(
+export const postAddReviewAction = createAsyncThunk<Review, AddReview, ThunkOptions>(
   'data/postReview',
   async ({cameraId, userName, advantage, disadvantage, review, rating}, { dispatch, extra: api}) => {
     try {
-      const {data} = await api.post<Reviews>(`${APIRoute.AddReview}`, {cameraId, userName, advantage, disadvantage, review, rating});
+      const {data} = await api.post<Review>(`${APIRoute.AddReview}`, {cameraId, userName, advantage, disadvantage, review, rating});
       return data;
     } catch (err) {
       dispatch(pushNotification({ type: 'error', message: 'Ошибка публикации отзыва' }));

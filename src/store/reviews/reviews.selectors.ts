@@ -5,3 +5,5 @@ import { State } from '../../types/state';
 
 export const getReviews = (state: State): Reviews => state[NameSpace.Reviews].reviews;
 export const getReviewsStatus = (state: State): Status => state[NameSpace.Reviews].status;
+
+export const getAddReviewStatus = (state: State): Status => state[NameSpace.Reviews].postStatus;

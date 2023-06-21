@@ -17,14 +17,13 @@ const mockProduct = makeFakeCamera();
 const store = mockStore({
   [NameSpace.Product]: {product: mockProduct, status: Status.Success},
 });
-const fakeFunction = (camera: null) => jest.fn();
 
 const history = createMemoryHistory();
 
 const fakeApp = (
   <Provider store={store}>
     <HistoryRouter history={history}>
-      <ModalProductReview isOpened product={mockProduct} onCloseButtonClick={fakeFunction} onAddReviewSuccess={jest.fn()}/>
+      <ModalProductReview isOpened onCloseButtonClick={jest.fn()}/>
     </HistoryRouter>
   </Provider>
 );
@@ -35,6 +34,6 @@ describe('Component: modal product review', () => {
 
     render(fakeApp);
 
-    expect(screen.getByTestId('modal-product-review')).toBeInTheDocument();
+    expect(screen.getByText(/Оставить отзыв/i)).toBeInTheDocument();
   });
 });

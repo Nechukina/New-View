@@ -1,6 +1,6 @@
 import { Status } from '../../const';
-import { makeFakeReviews } from '../../utils/mocks';
-import { getReviewsAction } from '../api-actions';
+import { makeFakeAddReview, makeFakeReviews } from '../../utils/mocks';
+import { getReviewsAction, postAddReviewAction } from '../api-actions';
 import { initialState, reviewsSlice } from './reviews.slice';
 
 
@@ -40,6 +40,39 @@ describe('Reducer: reviewsSlice', () => {
       .toEqual({
         ...initialState,
         status: Status.Error
+      });
+  });
+
+  it('should add new review to array of reviews objects', () => {
+    const fakeAddReview = makeFakeAddReview();
+    expect(reviewsSlice.reducer({...initialState, reviews: []}, {
+      type: postAddReviewAction.fulfilled.type,
+      payload: fakeAddReview
+    }))
+      .toEqual({
+        ...initialState,
+        reviews: [fakeAddReview],
+        postStatus: Status.Success
+      });
+  });
+
+  it('should return post status loading when fetch is pending', () => {
+    expect(reviewsSlice.reducer(initialState, {
+      type: postAddReviewAction.pending.type,
+    }))
+      .toEqual({
+        ...initialState,
+        postStatus: Status.Loading
+      });
+  });
+
+  it('should return post status error when fetch failed', () => {
+    expect(reviewsSlice.reducer(initialState, {
+      type: postAddReviewAction.rejected.type,
+    }))
+      .toEqual({
+        ...initialState,
+        postStatus: Status.Error
       });
   });
 
