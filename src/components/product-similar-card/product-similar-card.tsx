@@ -2,6 +2,7 @@ import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { CSSProperties } from 'react';
+import Rating from '../rating/rating';
 
 type ProductSimilarCardProps = {
   product: Camera;
@@ -19,25 +20,7 @@ function ProductSimilarCard({product, style}: ProductSimilarCardProps): JSX.Elem
         </picture>
       </div>
       <div className="product-card__info">
-        <div className="rate product-card__rate">
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <p className="visually-hidden">Рейтинг: 4</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{product.reviewCount}</p>
-        </div>
+        <Rating rating={product.rating} reviewCount={product.reviewCount} />
         <p className="product-card__title">{product.name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{`${product.price} ₽`}</p>
       </div>

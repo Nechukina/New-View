@@ -1,6 +1,7 @@
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
+import Rating from '../rating/rating';
 
 export type ProductCardProps = {
   camera: Camera;
@@ -8,7 +9,6 @@ export type ProductCardProps = {
 }
 
 function ProductCard({camera, onBuyButtonClick}: ProductCardProps): JSX.Element {
-
 
   return (
     <div className="product-card" data-testid="product-card">
@@ -19,25 +19,7 @@ function ProductCard({camera, onBuyButtonClick}: ProductCardProps): JSX.Element 
         </picture>
       </div>
       <div className="product-card__info">
-        <div className="rate product-card__rate">
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <p className="visually-hidden">Рейтинг: 3</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
-        </div>
+        <Rating reviewCount={camera.reviewCount} rating={camera.rating} />
         <p className="product-card__title">{camera.name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{`${camera.price} ₽`}
         </p>

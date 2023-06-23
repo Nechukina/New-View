@@ -58,7 +58,7 @@ export enum CameraLevel {
 }
 
 export const CAMERAS_PER_PAGE = 9;
-
+export const STARS_COUNT = 5;
 export const DEFAULT_REVIEWS_COUNT = 3;
 
 

@@ -7,6 +7,7 @@ import { PromoCamera } from '../types/promo';
 import { generatePath } from 'react-router-dom';
 import { AddReview, Review, Reviews } from '../types/review';
 import { setDescription } from './promo/promo.slice';
+import { getAverageRate } from '../utils/review';
 
 
 export const getCatalogAction = createAsyncThunk<Cameras, undefined, ThunkOptions>(
@@ -14,6 +15,11 @@ export const getCatalogAction = createAsyncThunk<Cameras, undefined, ThunkOption
   async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Cameras>(APIRoute.Catalog);
+      for (let i = 0; i < data.length; i++) {
+        const reviews = await api.get<Reviews>(generatePath(APIRoute.Reviews, { cameraId: String(data[i].id) }));
+
+        data[i].rating = getAverageRate(reviews.data);
+      }
 
       return data;
     } catch (err) {
@@ -48,7 +54,9 @@ export const getCameraInfoAction = createAsyncThunk<Camera, string, ThunkOptions
   async (cameraId, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Camera>(generatePath(APIRoute.Product, { cameraId: cameraId.toString() }));
+      const reviews = await api.get<Reviews>(generatePath(APIRoute.Reviews, { cameraId: String(cameraId) }));
 
+      data.rating = getAverageRate(reviews.data);
       return data;
     } catch (err) {
       dispatch(pushNotification({ type: 'error', message: 'Не удалось загрузить информацию о товарае' }));
@@ -62,7 +70,11 @@ export const getSimilarProductsAction = createAsyncThunk<Cameras, string, ThunkO
   async (cameraId, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Cameras>(generatePath(APIRoute.Similar, { cameraId: cameraId.toString() }));
+      for (let i = 0; i < data.length; i++) {
+        const reviews = await api.get<Reviews>(generatePath(APIRoute.Reviews, { cameraId: String(data[i].id) }));
 
+        data[i].rating = getAverageRate(reviews.data);
+      }
       return data;
     } catch (err) {
       dispatch(pushNotification({ type: 'error', message: 'Не удалось загрузить информацию о похожих товарах' }));
