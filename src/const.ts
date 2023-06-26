@@ -54,7 +54,7 @@ export enum CameraCategory {
 
 export enum CameraLevel {
   Zero = 'Нулевой',
-  Amature = 'Любительский',
+  Amateur = 'Любительский',
   Professional = 'Профессиональный',
 }
 
