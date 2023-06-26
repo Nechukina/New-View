@@ -58,6 +58,24 @@ export enum CameraLevel {
   Professional = 'Профессиональный',
 }
 
+export const categoryQueryValue = {
+  [CameraCategory.Videocamera]: 'videocamera',
+  [CameraCategory.Photocamera]: 'photocamera'
+};
+
+export const typeQueryValue = {
+  [CameraType.Collection]: 'collection',
+  [CameraType.Instant]: 'instant',
+  [CameraType.Digital]: 'digital',
+  [CameraType.Film]: 'film',
+};
+
+export const levelQueryValue = {
+  [CameraLevel.Zero]: 'zero',
+  [CameraLevel.Amateur]: 'amateur',
+  [CameraLevel.Professional]: 'professional'
+};
+
 export const CAMERAS_PER_PAGE = 9;
 export const STARS_COUNT = 5;
 export const DEFAULT_REVIEWS_COUNT = 3;
