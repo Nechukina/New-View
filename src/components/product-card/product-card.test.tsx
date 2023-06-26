@@ -11,7 +11,7 @@ const history = createMemoryHistory();
 
 const fakeApp = (
   <HistoryRouter history={history}>
-    <ProductCard camera={mockCamera} onBuyButtonClick={jest.fn()}/>
+    <ProductCard camera={mockCamera} />
   </HistoryRouter>
 );
 

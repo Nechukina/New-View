@@ -1,13 +1,23 @@
 import clsx from 'clsx';
-import { Link, generatePath } from 'react-router-dom';
+import { Link, generatePath, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useEffect } from 'react';
 
 type PaginationProps = {
   currentPage: number;
   pageCount: number;
 }
 
+
 function Pagination({currentPage, pageCount}: PaginationProps): JSX.Element {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentPage > pageCount) {
+      navigate(generatePath(AppRoute.Catalog, { page: `page_${pageCount}` }));
+    }
+  });
+
   return (
     <div className="pagination" data-testid="pagination">
       <ul className="pagination__list">

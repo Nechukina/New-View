@@ -5,10 +5,18 @@ import Rating from '../rating/rating';
 
 export type ProductCardProps = {
   camera: Camera;
-  onBuyButtonClick: (camera: Camera) => void;
+  setBuyModalOpened?: (arg: boolean) => void;
+  setCurrentCamera?: (camera: Camera) => void;
 }
 
-function ProductCard({camera, onBuyButtonClick}: ProductCardProps): JSX.Element {
+function ProductCard({camera, setBuyModalOpened, setCurrentCamera}: ProductCardProps): JSX.Element {
+
+  const handleClick = () => {
+    if (setBuyModalOpened && setCurrentCamera) {
+      setBuyModalOpened(true);
+      setCurrentCamera(camera);
+    }
+  };
 
   return (
     <div className="product-card" data-testid="product-card">
@@ -26,7 +34,7 @@ function ProductCard({camera, onBuyButtonClick}: ProductCardProps): JSX.Element 
       </div>
       <div className="product-card__buttons">
         <button
-          onClick={() => onBuyButtonClick(camera)}
+          onClick={handleClick}
           className="btn btn--purple product-card__btn"
           type="button"
         >

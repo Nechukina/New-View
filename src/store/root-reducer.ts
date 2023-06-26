@@ -6,6 +6,7 @@ import { promoSlice } from './promo/promo.slice';
 import { productSlice } from './product/product.slice';
 import { similarProductsSlice } from './similar-products/similar-products.slice';
 import { reviewsSlice } from './reviews/reviews.slice';
+import { sortSlice } from './sort/sort.slice';
 
 export const rootReducer = combineReducers({
   [NameSpace.Notification]: notificationsSlice.reducer,
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
   [NameSpace.Product]: productSlice.reducer,
   [NameSpace.Similar]: similarProductsSlice.reducer,
   [NameSpace.Reviews]: reviewsSlice.reducer,
+  [NameSpace.Sort]: sortSlice.reducer,
 });

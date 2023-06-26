@@ -2,7 +2,6 @@ import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getPromo, getPromoDescription } from '../../store/promo/promo.selectors';
 import { useAppSelector } from '../../hooks';
-import Loader from '../loader/loader';
 
 function Banner(): JSX.Element {
   const promo = useAppSelector(getPromo);
@@ -10,7 +9,7 @@ function Banner(): JSX.Element {
 
   if (!promo) {
     return (
-      <Loader />
+      <div></div>
     );
   }
 

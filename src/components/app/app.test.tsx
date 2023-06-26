@@ -3,7 +3,7 @@ import { generatePath } from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
 import thunk from 'redux-thunk';
 import App from './app';
-import { AppRoute, NameSpace, Status } from '../../const';
+import { AppRoute, NameSpace, SortOrder, SortType, Status } from '../../const';
 import { createAPI } from '../../services/api';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../history-router/history-router';
@@ -28,7 +28,8 @@ const store = mockStore({
   [NameSpace.Similar] : {similarProducts: mockCameras, status: Status.Success},
   [NameSpace.Notification]: {notifications: []},
   [NameSpace.Reviews]: {reviews: mockReviews, status: Status.Success},
-  [NameSpace.Review]: {reviews: mockReview, status: Status.Success}
+  [NameSpace.Review]: {reviews: mockReview, status: Status.Success},
+  [NameSpace.Sort]: {sortOrder: SortOrder.Up, sortType: SortType.SortPrice},
 });
 
 const history = createMemoryHistory();

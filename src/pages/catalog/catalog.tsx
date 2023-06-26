@@ -1,29 +1,28 @@
 import { Helmet } from 'react-helmet-async';
-import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useMemo} from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
-import { Camera } from '../../types/camera';
-import CatalogFilter from '../../components/catalog-filter/catalog-filter';
-import CatalogSort from '../../components/catalog-sort/catalog-sort';
+import { CAMERAS_PER_PAGE, SortOrder, SortType, Status, sortOrderQueryValue } from '../../const';
+import CatalogSection from '../../components/catalog-section/catalog-section';
+import { changeSortOrder, changeSortType } from '../../store/sort/sort.slice';
 import Footer from '../../components/footer/footer';
-import { getCameras, getCamerasStatus } from '../../store/catalog/catalog.selectors';
+import { getCamerasStatus, getSortedCameras } from '../../store/catalog/catalog.selectors';
 import { getCatalogAction, getPromoAction } from '../../store/api-actions';
+import { getCurrentSortOrder, getCurrentSortType } from '../../store/sort/sort.selectors';
 import { getPromoStatus } from '../../store/promo/promo.selectors';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
-import ModalCatalogAddItem from '../../components/modal-catalog-add-item/modal-catalog-add-item';
-import Pagination from '../../components/pagination/pagination';
-import ProductCard from '../../components/product-card/product-card';
-import { CAMERAS_PER_PAGE, Status } from '../../const';
+import { QueryParams } from '../../types/query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Page404 from '../page-404/page-404';
 
 function Catalog(): JSX.Element {
   const dispatch = useAppDispatch();
-  const cameras = useAppSelector(getCameras);
+  const cameras = useAppSelector(getSortedCameras);
   const camerasStatus = useAppSelector(getCamerasStatus);
   const promoStatus = useAppSelector(getPromoStatus);
+  const currentSortOrder = useAppSelector(getCurrentSortOrder);
+  const currentSortType = useAppSelector(getCurrentSortType);
 
   const param = useParams().page;
   let currentPage = Number(param?.replace(/[^\d]/g, ''));
@@ -32,16 +31,31 @@ function Catalog(): JSX.Element {
     currentPage = 1;
   }
 
-  const [isBuyModalOpened, setBuyModalOpened] = useState(false);
-  const [product, setProduct] = useState<Camera | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortType = searchParams.get('sortBy');
+  const sortOrder = searchParams.get('order');
 
+  const currentParams = useMemo(() => {
+    const params: QueryParams = {};
 
-  const handleBuyModalShow = useCallback((camera: Camera | null) => {
-    document.body.style.overflow = isBuyModalOpened ? '' : 'hidden';
+    if (currentSortOrder && currentSortType) {
+      params.sortBy = currentSortType;
+      params.order = sortOrderQueryValue[currentSortOrder];
+    }
 
-    setBuyModalOpened(!isBuyModalOpened);
-    setProduct(camera);
-  }, [isBuyModalOpened]);
+    return params;
+  }, [currentSortType, currentSortOrder]);
+
+  useEffect(() => {
+    if (sortType && sortOrder) {
+      dispatch(changeSortType(sortType as SortType));
+      dispatch(changeSortOrder(sortOrder === sortOrderQueryValue[SortOrder.Up] ? SortOrder.Up : SortOrder.Down));
+    }
+  }, [sortType, sortOrder, dispatch]);
+
+  useEffect(() => {
+    setSearchParams(currentParams);
+  }, [setSearchParams, currentParams]);
 
   useEffect(() => {
     let isMounted = true;
@@ -61,20 +75,13 @@ function Catalog(): JSX.Element {
     };
   }, [camerasStatus, dispatch]);
 
-  if (camerasStatus === Status.Idle || camerasStatus === Status.Loading || promoStatus === Status.Idle || promoStatus === Status.Loading){
+  if (camerasStatus === Status.Idle || camerasStatus === Status.Loading || promoStatus === Status.Loading){
     return <Loader />;
   }
 
-  if (!cameras) {
-    return <Page404 />;
-  }
 
   const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
   const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
-
-  if (currentPage > pageCount || !currentPage || !cameras) {
-    return <Page404 />;
-  }
 
 
   return (
@@ -88,38 +95,12 @@ function Catalog(): JSX.Element {
           <Banner />
           <div className="page-content">
             <Breadcrumbs />
-            <section className="catalog">
-              <div className="container">
-                <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
-                <div className="page-content__columns">
-                  <div className="catalog__aside">
-                    <CatalogFilter />
-                  </div>
-                  <div className="catalog__content">
-                    <CatalogSort />
-                    <div className="cards catalog__cards">
-                      {
-                        renderedCameras
-                          .map((camera) =>(
-                            <ProductCard
-                              key={camera.id}
-                              camera={camera}
-                              onBuyButtonClick={handleBuyModalShow}
-                            />)
-                          )
-                      }
-                    </div>
-                    {pageCount > 1 && <Pagination currentPage={currentPage} pageCount={pageCount} />}
-                  </div>
-                </div>
-              </div>
-            </section>
+            <CatalogSection
+              renderedCameras={renderedCameras}
+              currentPage={currentPage}
+              pageCount={pageCount}
+            />
           </div>
-          <ModalCatalogAddItem
-            isOpened={isBuyModalOpened}
-            product={product}
-            onCloseButtonClick={handleBuyModalShow}
-          />
         </main>
         <Footer />
       </div>

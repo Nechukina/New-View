@@ -30,6 +30,7 @@ export enum NameSpace {
   Order = 'ORDER',
   Notification = 'NOTIFICATION',
   Filter = 'FILTER',
+  Sort = 'SORT'
 }
 
 export enum Status {
@@ -61,4 +62,17 @@ export const CAMERAS_PER_PAGE = 9;
 export const STARS_COUNT = 5;
 export const DEFAULT_REVIEWS_COUNT = 3;
 
+export enum SortType {
+  SortPrice = 'по цене',
+  SortPopular = 'по популярности'
+}
 
+export enum SortOrder {
+  Up = 'По возрастанию',
+  Down = 'По убыванию'
+}
+
+export const sortOrderQueryValue = {
+  [SortOrder.Up]: 'up',
+  [SortOrder.Down]: 'down'
+};

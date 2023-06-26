@@ -1,7 +1,7 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import thunk from 'redux-thunk';
-import { NameSpace, Status } from '../../const';
+import { NameSpace, SortOrder, SortType, Status } from '../../const';
 import { createAPI } from '../../services/api';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../../components/history-router/history-router';
@@ -18,7 +18,8 @@ const mockCameras = makeFakeCameras();
 const mockPromo = makeFakePromo();
 const store = mockStore({
   [NameSpace.Cameras]: {catalog: mockCameras, status: Status.Success},
-  [NameSpace.Promo]: {camera: mockPromo, status: Status.Success}
+  [NameSpace.Promo]: {camera: mockPromo, status: Status.Success},
+  [NameSpace.Sort]: {sortOrder: SortOrder.Up, sortType: SortType.SortPrice}
 });
 
 const history = createMemoryHistory();

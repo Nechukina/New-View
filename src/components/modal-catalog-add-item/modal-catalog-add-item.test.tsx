@@ -7,13 +7,12 @@ import ModalCatalogAddItem from './modal-catalog-add-item';
 
 const mockProduct = makeFakeCamera();
 
-const fakeFunction = (camera: null) => jest.fn();
 
 const history = createMemoryHistory();
 
 const fakeApp = (
   <HistoryRouter history={history}>
-    <ModalCatalogAddItem isOpened product={mockProduct} onCloseButtonClick={fakeFunction} />
+    <ModalCatalogAddItem isOpened product={mockProduct} onCloseButtonClick={jest.fn()}/>
   </HistoryRouter>
 );
 
@@ -23,6 +22,6 @@ describe('Component: modal catalog add item', () => {
 
     render(fakeApp);
 
-    expect(screen.getByTestId('modal-add-item')).toBeInTheDocument();
+    expect(screen.getByText(/Добавить товар в корзину/i)).toBeInTheDocument();
   });
 });
