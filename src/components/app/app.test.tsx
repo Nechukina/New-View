@@ -30,6 +30,13 @@ const store = mockStore({
   [NameSpace.Reviews]: {reviews: mockReviews, status: Status.Success},
   [NameSpace.Review]: {reviews: mockReview, status: Status.Success},
   [NameSpace.Sort]: {sortOrder: SortOrder.Up, sortType: SortType.SortPrice},
+  [NameSpace.Filter]: {
+    category: null,
+    types: [],
+    levels: [],
+    minPrice: 0,
+    maxPrice: Infinity
+  }
 });
 
 const history = createMemoryHistory();

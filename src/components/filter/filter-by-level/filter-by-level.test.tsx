@@ -4,12 +4,20 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../../history-router/history-router';
 import FilterByLevel from './filter-by-level';
+import { NameSpace } from '../../../const';
 
 const mockStore = configureMockStore();
+const history = createMemoryHistory();
+const store = mockStore({
+  [NameSpace.Filter]: {
+    category: null,
+    types: [],
+    levels: [],
+    minPrice: 0,
+    maxPrice: Infinity
+  }});
 describe('Component: FilterByLevel', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({});
 
     render(
       <Provider store={store}>

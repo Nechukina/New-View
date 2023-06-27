@@ -19,7 +19,14 @@ const mockPromo = makeFakePromo();
 const store = mockStore({
   [NameSpace.Cameras]: {catalog: mockCameras, status: Status.Success},
   [NameSpace.Promo]: {camera: mockPromo, status: Status.Success},
-  [NameSpace.Sort]: {sortOrder: SortOrder.Up, sortType: SortType.SortPrice}
+  [NameSpace.Sort]: {sortOrder: SortOrder.Up, sortType: SortType.SortPrice},
+  [NameSpace.Filter]: {
+    category: null,
+    types: [],
+    levels: [],
+    minPrice: 0,
+    maxPrice: Infinity
+  }
 });
 
 const history = createMemoryHistory();
