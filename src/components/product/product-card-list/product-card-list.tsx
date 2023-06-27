@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Camera, Cameras } from '../../../types/camera';
 import ProductCard from '../product-card/product-card';
 import ModalCatalogAddItem from '../../modals/modal-catalog-add-item/modal-catalog-add-item';
@@ -22,14 +22,14 @@ function ProductCardList({cameras}: ProductCardListProps):JSX.Element {
   return (
     <>
       <div className="cards catalog__cards" data-testid="product-card-list">
-        {cameras.map((camera) =>(
+        {useMemo(() => (cameras.map((camera) =>(
           <ProductCard
             key={camera.id}
             camera={camera}
             setBuyModalOpened={setBuyModalOpened}
             setCurrentCamera={setCurrentProduct}
           />)
-        )}
+        )), [cameras])}
       </div>
       <ModalCatalogAddItem
         isOpened={isBuyModalOpened}

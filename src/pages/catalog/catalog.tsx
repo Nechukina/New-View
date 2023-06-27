@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import { useEffect, useMemo} from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import BreadcrumbsMain from '../../components/breadcrumbs/breadcrumbs-main/breadcrumbs-main';
-import { CAMERAS_PER_PAGE, SortOrder, SortType, Status, sortOrderQueryValue } from '../../const';
+import { CameraCategory, CameraLevel, CameraType, SortOrder, SortType, Status, sortOrderQueryValue } from '../../const';
 import { changeSortOrder, changeSortType } from '../../store/sort/sort.slice';
 import Footer from '../../components/footer/footer';
-import { getCamerasStatus, getSortedCameras } from '../../store/catalog/catalog.selectors';
+import { getCamerasStatus} from '../../store/catalog/catalog.selectors';
 import { getCatalogAction, getPromoAction } from '../../store/api-actions';
 import { getCurrentSortOrder, getCurrentSortType } from '../../store/sort/sort.selectors';
 import { getPromoStatus } from '../../store/promo/promo.selectors';
@@ -15,25 +15,42 @@ import Loader from '../../components/loader/loader';
 import { QueryParams } from '../../types/query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CatalogSection from '../../components/catalog/catalog-section/catalog-section';
+import { getCurrentCategory, getCurrentLevels, getCurrentMaxPrice, getCurrentMinPrice, getCurrentTypes } from '../../store/filter/filter.selectors';
+import { changeCategory, changeLevel, changeType, setMaxPrice, setMinPrice } from '../../store/filter/filter.slice';
+import { capitalizeFirstLetter } from '../../utils/filter';
 
 function Catalog(): JSX.Element {
   const dispatch = useAppDispatch();
-  const cameras = useAppSelector(getSortedCameras);
   const camerasStatus = useAppSelector(getCamerasStatus);
   const promoStatus = useAppSelector(getPromoStatus);
   const currentSortOrder = useAppSelector(getCurrentSortOrder);
   const currentSortType = useAppSelector(getCurrentSortType);
+  const currentCategory = useAppSelector(getCurrentCategory);
+  const currentTypes = useAppSelector(getCurrentTypes);
+  const currentLevels = useAppSelector(getCurrentLevels);
+  const currentMinPrice = useAppSelector(getCurrentMinPrice);
+  const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
 
-  const param = useParams().page;
-  let currentPage = Number(param?.replace(/[^\d]/g, ''));
-
-  if (!currentPage) {
-    currentPage = 1;
-  }
 
   const [searchParams, setSearchParams] = useSearchParams();
   const sortType = searchParams.get('sortBy');
   const sortOrder = searchParams.get('order');
+
+  const category = searchParams.get('category');
+  const type: string[] = [];
+  const level: string[] = [];
+  const priceGt = searchParams.get('price_gt');
+  const priceLt = searchParams.get('price_lt');
+
+  for (const [key, value] of searchParams.entries()) {
+    if (key === 'type' && !type.includes(value)) {
+      type.push(value);
+    }
+
+    if (key === 'level' && !level.includes(value)) {
+      level.push(value);
+    }
+  }
 
   const currentParams = useMemo(() => {
     const params: QueryParams = {};
@@ -41,17 +58,54 @@ function Catalog(): JSX.Element {
     if (currentSortOrder && currentSortType) {
       params.sortBy = currentSortType;
       params.order = sortOrderQueryValue[currentSortOrder];
+    } else if (!currentCategory && !currentTypes.length && !currentLevels.length && !currentMinPrice && !currentMaxPrice) {
+      return;
     }
 
+    if (currentCategory) { params.category = currentCategory; }
+    if (currentTypes) { params.type = currentTypes; }
+    if (currentLevels) { params.level = currentLevels; }
+    if (currentMinPrice) { params['price_gt'] = currentMinPrice.toString(); }
+    if (currentMaxPrice) { params['price_lt'] = currentMaxPrice.toString(); }
+
     return params;
-  }, [currentSortType, currentSortOrder]);
+  }, [currentSortType, currentSortOrder, currentCategory, currentTypes, currentLevels, currentMinPrice, currentMaxPrice]);
+
 
   useEffect(() => {
     if (sortType && sortOrder) {
       dispatch(changeSortType(sortType as SortType));
       dispatch(changeSortOrder(sortOrder === sortOrderQueryValue[SortOrder.Up] ? SortOrder.Up : SortOrder.Down));
     }
-  }, [sortType, sortOrder, dispatch]);
+
+    if (category) {
+      dispatch(changeCategory(capitalizeFirstLetter(category) as CameraCategory));
+    }
+
+    if (priceGt) {
+      dispatch(setMinPrice(+priceGt));
+    }
+
+    if (priceLt) {
+      dispatch(setMaxPrice(+priceLt));
+    }
+  }, [sortType, sortOrder, dispatch, category, priceGt, priceLt]);
+
+
+  useEffect(() => {
+    if (type.length) {
+      type.forEach((item) => {
+        dispatch(changeType(capitalizeFirstLetter(item) as CameraType));
+      });
+    }
+    if (level.length) {
+      level.forEach((item) => {
+        dispatch(changeLevel(capitalizeFirstLetter(item) as CameraLevel));
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
 
   useEffect(() => {
     setSearchParams(currentParams);
@@ -80,10 +134,6 @@ function Catalog(): JSX.Element {
   }
 
 
-  const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
-  const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
-
-
   return (
     <>
       <Helmet>
@@ -95,11 +145,7 @@ function Catalog(): JSX.Element {
           <Banner />
           <div className="page-content">
             <BreadcrumbsMain />
-            <CatalogSection
-              renderedCameras={renderedCameras}
-              currentPage={currentPage}
-              pageCount={pageCount}
-            />
+            <CatalogSection />
           </div>
         </main>
         <Footer />

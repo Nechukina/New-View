@@ -4,6 +4,6 @@ export type QueryParams = {
   category?: string;
   type?: string[];
   level?: string[];
-  price_gte?: string;
-  price_lte?: string;
+  price_gt?: string;
+  price_lt?: string;
 };

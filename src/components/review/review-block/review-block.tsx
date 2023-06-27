@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import { DEFAULT_REVIEWS_COUNT } from '../../../const';
 import { getReviews } from '../../../store/reviews/reviews.selectors';
@@ -34,7 +34,7 @@ function ReviewBlock(): JSX.Element {
               <button onClick={() => handleAddReviewModalShow()} className="btn" type="button">Оставить свой отзыв</button>
             </div>
             <ul className="review-block__list">
-              {sortedReviews
+              {useMemo(() => (sortedReviews
                 .slice(0, currentReviewsCount)
                 .map((comment) => (
                   <ReviewCard
@@ -42,7 +42,7 @@ function ReviewBlock(): JSX.Element {
                     review={comment}
                   />
                 )
-                )}
+                )), [currentReviewsCount, sortedReviews])}
             </ul>
             <div className="review-block__buttons">
               {sortedReviews.length > currentReviewsCount &&

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Link, generatePath, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
 import { AppRoute } from '../../const';
-import { useEffect } from 'react';
 
 type PaginationProps = {
   currentPage: number;
@@ -30,7 +30,7 @@ function Pagination({currentPage, pageCount}: PaginationProps): JSX.Element {
               Назад
             </Link>
           </li>}
-        {Array.from({ length: pageCount }, (_, i) => i + 1).map((page) => (
+        {useMemo(()=> (Array.from({ length: pageCount }, (_, i) => i + 1).map((page) => (
           <li className="pagination__item" key={page}>
             <Link
               className={clsx('pagination__link', page === currentPage && 'pagination__link--active')}
@@ -39,7 +39,7 @@ function Pagination({currentPage, pageCount}: PaginationProps): JSX.Element {
               {page}
             </Link>
           </li>
-        ))}
+        ))),[currentPage, pageCount])}
         {currentPage !== pageCount &&
           <li className="pagination__item">
             <Link

@@ -30,7 +30,7 @@ const store = mockStore({
 const fakeApp = (
   <Provider store={store}>
     <HistoryRouter history={history}>
-      <CatalogSection renderedCameras={mockCameras} pageCount={1} currentPage={1}/>,
+      <CatalogSection />,
     </HistoryRouter>
   </Provider>
 );

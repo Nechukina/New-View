@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import { Review } from '../../../types/review';
+import { useMemo } from 'react';
 
 type ReviewCardProps = {
   review: Review;
@@ -19,7 +20,7 @@ function ReviewCard({ review }: ReviewCardProps) {
         </time>
       </div>
       <div className="rate review-card__rate">
-        {Array(5).fill('').map((_, index) => (
+        {useMemo(() => (Array(5).fill('').map((_, index) => (
           <svg
             key={`${index.toString()}`}
             width="17"
@@ -28,7 +29,7 @@ function ReviewCard({ review }: ReviewCardProps) {
           >
             <use xlinkHref={index + 1 <= review.rating ? '#icon-full-star' : '#icon-star'}></use>
           </svg>
-        ))}
+        ))), [review.rating])}
         <p className="visually-hidden">Оценка: {review.rating}</p>
       </div>
       <ul className="review-card__list">
