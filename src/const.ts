@@ -76,9 +76,6 @@ export const levelQueryValue = {
   [CameraLevel.Professional]: 'professional'
 };
 
-export const CAMERAS_PER_PAGE = 9;
-export const STARS_COUNT = 5;
-export const DEFAULT_REVIEWS_COUNT = 3;
 
 export enum SortType {
   SortPrice = 'по цене',
@@ -94,3 +91,15 @@ export const sortOrderQueryValue = {
   [SortOrder.Up]: 'up',
   [SortOrder.Down]: 'down'
 };
+
+export const CAMERAS_PER_PAGE = 9;
+export const STARS_COUNT = 5;
+export const DEFAULT_REVIEWS_COUNT = 3;
+export const DISPLAYED_SEARCH_RESULT_COUNT = 4;
+
+export enum KeyCode {
+  Enter = 'Enter',
+  ArrowUp = 'ArrowUp',
+  ArrowDown = 'ArrowDown',
+  Esc = 'Escape'
+}

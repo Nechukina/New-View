@@ -1,6 +1,7 @@
 import ReactFocusLock from 'react-focus-lock';
 import clsx from 'clsx';
 import { useCallback, useEffect, useRef } from 'react';
+import { KeyCode } from '../../../const';
 
 type ModalProps = {
   isOpen: boolean;
@@ -12,7 +13,7 @@ function Modal({ isOpen, onCloseClick, children }: ModalProps): JSX.Element {
   const modalRef = useRef(null);
 
   const onEscapeKeydown = useCallback((evt: KeyboardEvent) => {
-    if (evt.key === 'Escape') {
+    if (evt.key === KeyCode.Esc) {
       onCloseClick();
     }
   }, [onCloseClick]);

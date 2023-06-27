@@ -4,20 +4,20 @@ import { useSearchParams } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import BreadcrumbsMain from '../../components/breadcrumbs/breadcrumbs-main/breadcrumbs-main';
 import { CameraCategory, CameraLevel, CameraType, SortOrder, SortType, Status, sortOrderQueryValue } from '../../const';
+import { capitalizeFirstLetter } from '../../utils/filter';
+import CatalogSection from '../../components/catalog/catalog-section/catalog-section';
+import { changeCategory, changeLevel, changeType, setMaxPrice, setMinPrice } from '../../store/filter/filter.slice';
 import { changeSortOrder, changeSortType } from '../../store/sort/sort.slice';
 import Footer from '../../components/footer/footer';
 import { getCamerasStatus} from '../../store/catalog/catalog.selectors';
 import { getCatalogAction, getPromoAction } from '../../store/api-actions';
+import { getCurrentCategory, getCurrentLevels, getCurrentMaxPrice, getCurrentMinPrice, getCurrentTypes } from '../../store/filter/filter.selectors';
 import { getCurrentSortOrder, getCurrentSortType } from '../../store/sort/sort.selectors';
 import { getPromoStatus } from '../../store/promo/promo.selectors';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import { QueryParams } from '../../types/query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import CatalogSection from '../../components/catalog/catalog-section/catalog-section';
-import { getCurrentCategory, getCurrentLevels, getCurrentMaxPrice, getCurrentMinPrice, getCurrentTypes } from '../../store/filter/filter.selectors';
-import { changeCategory, changeLevel, changeType, setMaxPrice, setMinPrice } from '../../store/filter/filter.slice';
-import { capitalizeFirstLetter } from '../../utils/filter';
 
 function Catalog(): JSX.Element {
   const dispatch = useAppDispatch();
