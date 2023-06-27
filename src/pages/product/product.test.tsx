@@ -19,6 +19,7 @@ const mockProduct = makeFakeCamera();
 const mockReviews = makeFakeReviews();
 
 const store = mockStore({
+  [NameSpace.Cameras]: {catalog: mockCameras, status: Status.Success},
   [NameSpace.Product]: {product: mockProduct, status: Status.Success},
   [NameSpace.Similar] : {similarProducts: mockCameras, status: Status.Success},
   [NameSpace.Reviews]: {reviews: mockReviews, status: Status.Success},
