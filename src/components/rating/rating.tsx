@@ -9,7 +9,7 @@ function Rating({ rating, reviewCount }: RatingProps): JSX.Element {
   const stars: boolean[] = getStarsArray(rating);
 
   return (
-    <div className="rate product__rate">
+    <div className="rate product__rate" data-testid="rating">
       {stars.map((star, i) => (
         <svg width="17" height="16" aria-hidden="true" key={++i}>
           <use xlinkHref={star ? '#icon-full-star' : '#icon-star'}></use>

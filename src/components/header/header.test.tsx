@@ -5,7 +5,7 @@ import Header from './header';
 
 const history = createMemoryHistory();
 
-describe('Component: breadcrumbs basket', () => {
+describe('Component: header basket', () => {
   it('should render correctly', () => {
 
     render(

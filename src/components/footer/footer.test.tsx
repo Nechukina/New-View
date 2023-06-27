@@ -5,7 +5,7 @@ import Footer from './footer';
 
 const history = createMemoryHistory();
 
-describe('Component: breadcrumbs basket', () => {
+describe('Component: footer basket', () => {
   it('should render correctly', () => {
 
     render(

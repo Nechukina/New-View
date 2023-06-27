@@ -2,19 +2,19 @@ import { useEffect, MouseEvent} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import { AppRoute, Status } from '../../const';
-import BreadcrumbsProduct from '../../components/breadcrumbs-product/breadcrumbs-product';
 import Footer from '../../components/footer/footer';
 import { getCameraInfoAction, getReviewsAction, getSimilarProductsAction } from '../../store/api-actions';
 import { getProduct, getProductStatus } from '../../store/product/product.selectors';
 import { getSimilarProducts, getSimilarProductsStatus } from '../../store/similar-products/similar-products.selectors';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
-import ProductInfo from '../../components/product-info/product-info';
-import ProductSimilar from '../../components/product-similar/product-similar';
-import ReviewBlock from '../../components/review-block/review-block';
+import ReviewBlock from '../../components/review/review-block/review-block';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import ScrollToTop from '../../utils/scroll-to-top';
 import { getReviewsStatus } from '../../store/reviews/reviews.selectors';
+import ProductInfo from '../../components/product/product-info/product-info';
+import ProductSimilar from '../../components/product/product-similar/product-similar';
+import BreadcrumbsProduct from '../../components/breadcrumbs/breadcrumbs-product/breadcrumbs-product';
 
 function Product(): JSX.Element {
   const id = useParams().id;

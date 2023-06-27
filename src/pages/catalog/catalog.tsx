@@ -2,9 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { useEffect, useMemo} from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
-import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
+import BreadcrumbsMain from '../../components/breadcrumbs/breadcrumbs-main/breadcrumbs-main';
 import { CAMERAS_PER_PAGE, SortOrder, SortType, Status, sortOrderQueryValue } from '../../const';
-import CatalogSection from '../../components/catalog-section/catalog-section';
 import { changeSortOrder, changeSortType } from '../../store/sort/sort.slice';
 import Footer from '../../components/footer/footer';
 import { getCamerasStatus, getSortedCameras } from '../../store/catalog/catalog.selectors';
@@ -15,6 +14,7 @@ import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import { QueryParams } from '../../types/query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import CatalogSection from '../../components/catalog/catalog-section/catalog-section';
 
 function Catalog(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -94,7 +94,7 @@ function Catalog(): JSX.Element {
         <main data-testid="catalog-page">
           <Banner />
           <div className="page-content">
-            <Breadcrumbs />
+            <BreadcrumbsMain />
             <CatalogSection
               renderedCameras={renderedCameras}
               currentPage={currentPage}

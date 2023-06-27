@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import BasketList from '../../components/basket-list/basket-list';
-import BasketOrder from '../../components/basket-order/basket-order';
-import BasketPromo from '../../components/basket-promo/basket-promo';
-import BreadcrumbsBasket from '../../components/breadcrumbs-basket/breadcrumbs-basket';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import BreadcrumbsBasket from '../../components/breadcrumbs/breadcrumbs-basket/breadcrumbs-basket';
+import BasketList from '../../components/basket/basket-list/basket-list';
+import BasketPromo from '../../components/basket/basket-promo/basket-promo';
+import BasketOrder from '../../components/basket/basket-order/basket-order';
 
 function Basket(): JSX.Element {
   return (

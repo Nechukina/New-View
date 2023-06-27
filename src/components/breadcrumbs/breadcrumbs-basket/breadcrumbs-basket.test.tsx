@@ -1,19 +1,19 @@
 import { render, screen} from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../history-router/history-router';
-import Pagination from './pagination';
+import HistoryRouter from '../../history-router/history-router';
+import BreadcrumbsBasket from './breadcrumbs-basket';
 
 const history = createMemoryHistory();
 
-describe('Component: pagination basket', () => {
+describe('Component: breadcrumbs basket', () => {
   it('should render correctly', () => {
 
     render(
       <HistoryRouter history={history}>
-        <Pagination currentPage={1} pageCount={1}/>
+        <BreadcrumbsBasket/>
       </HistoryRouter>,
     );
 
-    expect(screen.getByTestId('pagination')).toBeInTheDocument();
+    expect(screen.getByTestId('breadcrumbs-basket')).toBeInTheDocument();
   });
 });
