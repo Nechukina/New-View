@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
 import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import HistoryRouter from '../history-router/history-router';
+import HistoryRouter from '../../history-router/history-router';
 import SearchItem from './search-item';
-import { makeFakeCamera } from '../../utils/mocks';
+import { makeFakeCamera } from '../../../utils/mocks';
 
 const mockStore = configureMockStore();
 const camera = makeFakeCamera();
@@ -18,7 +17,7 @@ describe('Component: SearchItem', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <SearchItem camera={camera} isCurrent onClick={() => { console.log('hello'); }} />
+          <SearchItem camera={camera} isCurrent onClick={() => jest.fn()} />
         </HistoryRouter>
       </Provider>
     );

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { Camera } from '../../types/camera';
+import { Camera } from '../../../types/camera';
 import classes from './search-item.module.scss';
 import clsx from 'clsx';
-import { KeyCode } from '../../const';
+import { KeyCode } from '../../../const';
 
 type SearchItemProps = {
   camera: Camera;

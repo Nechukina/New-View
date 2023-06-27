@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
-import { AppRoute, DISPLAYED_SEARCH_RESULT_COUNT, KeyCode} from '../../const';
+import { AppRoute, DISPLAYED_SEARCH_RESULT_COUNT, KeyCode} from '../../../const';
 import SearchItem from '../search-item/search-item';
-import useKeyPress from '../../hooks/use-key-press/use-key-press';
-import { useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/catalog/catalog.selectors';
-import { useOutsideClick } from '../../hooks/use-outside-click/use-outside-click';
+import useKeyPress from '../../../hooks/use-key-press/use-key-press';
+import { useAppSelector } from '../../../hooks';
+import { getCameras } from '../../../store/catalog/catalog.selectors';
+import { useOutsideClick } from '../../../hooks/use-outside-click/use-outside-click';
 import clsx from 'clsx';
 import ReactFocusLock from 'react-focus-lock';
 
