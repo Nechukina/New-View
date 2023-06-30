@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Camera } from '../../../types/camera';
-import classes from './search-item.module.scss';
-import clsx from 'clsx';
 import { KeyCode } from '../../../const';
 
 type SearchItemProps = {
@@ -28,7 +26,7 @@ function SearchItem({ camera, isCurrent, onClick }: SearchItemProps): JSX.Elemen
 
   return (
     <li
-      className={clsx('form-search__select-item', isCurrent && classes.active)}
+      className="form-search__select-item"
       tabIndex={isCurrent ? -1 : 0}
       key={camera.id}
       ref={itemRef}
