@@ -1,9 +1,10 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { getCurrentMaxPrice, getCurrentMinPrice } from '../../../store/filter/filter.selectors';
-import { getfilteredCameras } from '../../../store/catalog/catalog.selectors';
+import { getCameras, getfilteredCameras } from '../../../store/catalog/catalog.selectors';
 import { getPrice } from '../../../utils/filter';
 import { setMaxPrice, setMinPrice } from '../../../store/filter/filter.slice';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { KeyCode } from '../../../const';
 
 type FilterByPriceProps = {
   resetFilters: boolean;
@@ -11,11 +12,18 @@ type FilterByPriceProps = {
 
 function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
   const cameras = useAppSelector(getfilteredCameras);
+  const allCameras = useAppSelector(getCameras);
   const currentMinPrice = useAppSelector(getCurrentMinPrice);
   const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
+  // eslint-disable-next-line no-console
+  console.log(cameras);
 
   const minPrice = getPrice(cameras, 'min');
   const maxPrice = getPrice(cameras, 'max');
+
+  const minPriceAll = getPrice(allCameras, 'min');
+  const maxPriceAll = getPrice(allCameras, 'max');
+
 
   const [minPriceValue, setMinPriceValue] = useState(0 || currentMinPrice);
   const [maxPriceValue, setMaxPriceValue] = useState(0 || currentMaxPrice);
@@ -30,18 +38,26 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
   }, [resetFilters]);
 
   const handleMinPriceInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.target;
+    const price = +evt.target.value < 0 || evt.target.value === '-0' ? '' : evt.target.value;
+    if(evt.target.value === '') {
+      setMinPriceValue(+minPriceAll);
+      dispatch(setMinPrice(0));
 
-    setMinPriceValue(+value);
+    }
+    setMinPriceValue(+price);
   };
 
   const handleMaxPriceInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.target;
+    const price = +evt.target.value < 0 || evt.target.value === '-0' ? '' : evt.target.value;
 
-    setMaxPriceValue(+value);
+    if(evt.target.value === '') {
+      setMaxPriceValue(+maxPriceAll);
+      dispatch(setMaxPrice(0));
+    }
+    setMaxPriceValue(+price);
   };
 
-  const handleMinPriceBlur = () => {
+  const checkMinPrice = () => {
     if (!minPriceValue) {
       setMinPriceValue(0);
       dispatch(setMinPrice(0));
@@ -66,7 +82,7 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
     dispatch(setMinPrice(minPriceValue));
   };
 
-  const handleMaxPriceBlur = () => {
+  const checkMaxPrice = () => {
     if (!maxPriceValue) {
       setMaxPriceValue(0);
       dispatch(setMaxPrice(0));
@@ -91,6 +107,26 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
     dispatch(setMaxPrice(maxPriceValue));
   };
 
+  const handleMinPriceBlur = () => {
+    checkMinPrice();
+  };
+
+  const handleMaxPriceBlur = () => {
+    checkMaxPrice();
+  };
+
+  const handleMinPriceKeyDown = (evt: KeyboardEvent<HTMLInputElement>) => {
+    if (evt.code === KeyCode.Enter) {
+      checkMinPrice();
+    }
+  };
+
+  const handleMaxPriceKeyDown = (evt: KeyboardEvent<HTMLInputElement>) => {
+    if (evt.code === KeyCode.Enter) {
+      checkMaxPrice();
+    }
+  };
+
   return (
     <fieldset className="catalog-filter__block">
       <legend className="title title--h5">Цена, ₽</legend>
@@ -102,6 +138,7 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
               name="price"
               placeholder={minPrice}
               onChange={handleMinPriceInputChange}
+              onKeyDown={handleMinPriceKeyDown}
               onBlur={handleMinPriceBlur}
               value={minPriceValue || ''}
             />
@@ -114,6 +151,7 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
               name="priceUp"
               placeholder={maxPrice}
               onChange={handleMaxPriceInputChange}
+              onKeyDown={handleMaxPriceKeyDown}
               onBlur={handleMaxPriceBlur}
               value={maxPriceValue || ''}
             />

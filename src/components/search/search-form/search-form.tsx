@@ -68,13 +68,13 @@ function SearchForm(): JSX.Element {
   };
 
   return (
-    <ReactFocusLock disabled={!searchQuery}>
-      <div
-        className={clsx('form-search', searchedCameras.length && searchQuery && 'list-opened')}
-        ref={listRef}
-        tabIndex={-1}
-        data-testid="search-form"
-      >
+    <div
+      className={clsx('form-search', searchedCameras.length && searchQuery && 'list-opened')}
+      ref={listRef}
+      tabIndex={-1}
+      data-testid="search-form"
+    >
+      <ReactFocusLock disabled={!searchQuery}>
         <form onSubmit={(evt) => { evt.preventDefault(); }}>
           <label>
             <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
@@ -115,8 +115,8 @@ function SearchForm(): JSX.Element {
             <use xlinkHref="#icon-close"></use>
           </svg><span className="visually-hidden">Сбросить поиск</span>
         </button>
-      </div>
-    </ReactFocusLock>
+      </ReactFocusLock>
+    </div>
   );
 }
 

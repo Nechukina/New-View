@@ -41,15 +41,15 @@ export enum Status {
 }
 
 export enum CameraType {
-  Collection = 'Коллекционная',
-  Instant = 'Моментальная',
   Digital = 'Цифровая',
   Film = 'Плёночная',
+  Instant = 'Моментальная',
+  Collection = 'Коллекционная',
 }
 
 export enum CameraCategory {
+  Photocamera = 'Фотокамера',
   Videocamera = 'Видеокамера',
-  Photocamera = 'Фотоаппарат',
 }
 
 export enum CameraLevel {
@@ -64,10 +64,10 @@ export const categoryQueryValue = {
 };
 
 export const typeQueryValue = {
-  [CameraType.Collection]: 'collection',
-  [CameraType.Instant]: 'instant',
   [CameraType.Digital]: 'digital',
   [CameraType.Film]: 'film',
+  [CameraType.Instant]: 'instant',
+  [CameraType.Collection]: 'collection',
 };
 
 export const levelQueryValue = {
