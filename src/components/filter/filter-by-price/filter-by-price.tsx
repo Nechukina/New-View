@@ -15,8 +15,6 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
   const allCameras = useAppSelector(getCameras);
   const currentMinPrice = useAppSelector(getCurrentMinPrice);
   const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
-  // eslint-disable-next-line no-console
-  console.log(cameras);
 
   const minPrice = getPrice(cameras, 'min');
   const maxPrice = getPrice(cameras, 'max');
