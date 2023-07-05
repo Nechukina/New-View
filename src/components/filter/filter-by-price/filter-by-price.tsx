@@ -63,6 +63,10 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
       return;
     }
 
+    if (minPriceValue < +minPrice && cameras.length < allCameras.length) {
+      return;
+    }
+
     if (minPriceValue < +minPrice) {
       setMinPriceValue(+minPrice);
       dispatch(setMinPrice(+minPrice));
@@ -81,10 +85,17 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
   };
 
   const checkMaxPrice = () => {
+    // eslint-disable-next-line no-debugger
+    // debugger;
     if (!maxPriceValue) {
       setMaxPriceValue(0);
       dispatch(setMaxPrice(0));
 
+      return;
+    }
+
+
+    if (maxPriceValue > +maxPrice && cameras.length < allCameras.length) {
       return;
     }
 
