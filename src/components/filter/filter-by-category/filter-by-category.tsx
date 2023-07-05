@@ -30,7 +30,12 @@ function FilterByCategory(): JSX.Element {
               onChange={() => handleCnange(category)}
             />
             <span className="custom-checkbox__icon"></span>
-            <span className="custom-checkbox__label">{category}</span>
+            {category === CameraCategory.Photocamera
+              ?
+              <span className="custom-checkbox__label">Фотокамера</span>
+              :
+              <span className="custom-checkbox__label">Видеокамера</span>}
+
           </label>
         </div>
       )
