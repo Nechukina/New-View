@@ -1,10 +1,14 @@
-import { CameraCategory, categoryQueryValue } from '../../../const';
+import { CameraCategory, CameraType, categoryQueryValue } from '../../../const';
 import { changeCategory } from '../../../store/filter/filter.slice';
-import { getCurrentCategory } from '../../../store/filter/filter.selectors';
+import { getCurrentCategory, getCurrentTypes } from '../../../store/filter/filter.selectors';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 function FilterByCategory(): JSX.Element {
   const currentCategory = useAppSelector(getCurrentCategory);
+  const currentTypes = useAppSelector(getCurrentTypes);
+
+  const isInstantType = currentTypes.includes(CameraType.Instant);
+  const isFilmType = currentTypes.includes(CameraType.Film);
 
   const dispatch = useAppDispatch();
 
@@ -28,6 +32,7 @@ function FilterByCategory(): JSX.Element {
               name={categoryQueryValue[category]}
               checked={currentCategory === category}
               onChange={() => handleCnange(category)}
+              disabled={category === CameraCategory.Videocamera && (isFilmType || isInstantType)}
             />
             <span className="custom-checkbox__icon"></span>
             {category === CameraCategory.Photocamera
