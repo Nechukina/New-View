@@ -5,7 +5,7 @@ describe('Component: modal catalog add to cart item success', () => {
   it('should render correctly', () => {
 
     render(
-      <ModalCatalogAddItemSuccess/>,
+      <ModalCatalogAddItemSuccess isOpened onClose={jest.fn()}/>,
     );
 
     const containerElement = screen.getByTestId('modal-add-to-cart-success');

@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { Camera, Cameras } from '../../../types/camera';
 import ProductCard from '../product-card/product-card';
 import ModalCatalogAddItem from '../../modals/modal-catalog-add-item/modal-catalog-add-item';
+import ModalCatalogAddItemSuccess from '../../modals/modal-catalog-add-item-success/modal-catalog-add-item-success';
 
 type ProductCardListProps = {
   cameras: Cameras;
@@ -12,12 +13,24 @@ function ProductCardList({cameras}: ProductCardListProps):JSX.Element {
 
   const [isBuyModalOpened, setBuyModalOpened] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<Camera>(cameras[0]);
+  const [isAddToCartModalSuccess, setAddToCartModalSuccess] = useState(false);
 
+  // const handleBuyModalShow = useCallback(() => {
+  //   setBuyModalOpened(true);
+  // }, []);
 
-  const handleBuyModalShow = useCallback(() => {
+  // const handleAddToCartClick = useCallback(() => {
+  //   setAddToCartModalSuccess(true);
+  //   setBuyModalOpened(false);
+  // },[]);
 
-    setBuyModalOpened(!isBuyModalOpened);
-  }, [isBuyModalOpened]);
+  const handleAddToCartModalHide = useCallback(() => {
+    setAddToCartModalSuccess(false);
+  },[]);
+
+  const handleBuyModalHide = useCallback(() => {
+    setBuyModalOpened(false);
+  },[]);
 
   return (
     <>
@@ -33,8 +46,13 @@ function ProductCardList({cameras}: ProductCardListProps):JSX.Element {
       </div>
       <ModalCatalogAddItem
         isOpened={isBuyModalOpened}
-        onCloseButtonClick={handleBuyModalShow}
+        onCloseButtonClick={handleBuyModalHide}
         product={currentProduct}
+        setAddToCartModalSuccess={setAddToCartModalSuccess}
+      />
+      <ModalCatalogAddItemSuccess
+        isOpened={isAddToCartModalSuccess}
+        onClose={handleAddToCartModalHide}
       />
     </>
   );

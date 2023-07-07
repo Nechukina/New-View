@@ -12,7 +12,7 @@ const history = createMemoryHistory();
 
 const fakeApp = (
   <HistoryRouter history={history}>
-    <ModalCatalogAddItem isOpened product={mockProduct} onCloseButtonClick={jest.fn()}/>
+    <ModalCatalogAddItem isOpened product={mockProduct} onCloseButtonClick={jest.fn()} setAddToCartModalSuccess={jest.fn()}/>
   </HistoryRouter>
 );
 

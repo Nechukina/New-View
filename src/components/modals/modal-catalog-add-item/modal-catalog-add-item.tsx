@@ -5,12 +5,20 @@ type ModalCatalogAddItemProps = {
   isOpened: boolean;
   product: Camera;
   onCloseButtonClick: () => void;
+  setAddToCartModalSuccess: (arg: boolean) => void;
 }
 
-function ModalCatalogAddItem({isOpened, product, onCloseButtonClick}: ModalCatalogAddItemProps): JSX.Element {
+function ModalCatalogAddItem({isOpened, product, onCloseButtonClick, setAddToCartModalSuccess}: ModalCatalogAddItemProps): JSX.Element {
   if(!product) {
     return <div></div>;
   }
+
+  const handleClick = () => {
+    // dispatch(addCamera(camera));
+
+    setAddToCartModalSuccess(true);
+    onCloseButtonClick();
+  };
   return (
     <Modal isOpen={isOpened} onCloseClick={onCloseButtonClick}>
       <p className="title title--h4">Добавить товар в корзину</p>
@@ -34,7 +42,7 @@ function ModalCatalogAddItem({isOpened, product, onCloseButtonClick}: ModalCatal
         </div>
       </div>
       <div className="modal__buttons">
-        <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">
+        <button onClick={handleClick} className="btn btn--purple modal__btn modal__btn--fit-width" type="button">
           <svg width="24" height="16" aria-hidden="true">
             <use xlinkHref="#icon-add-basket"></use>
           </svg>Добавить в корзину
