@@ -8,8 +8,10 @@ import { productSlice } from './product/product.slice';
 import { reviewsSlice } from './reviews/reviews.slice';
 import { similarProductsSlice } from './similar-products/similar-products.slice';
 import { sortSlice } from './sort/sort.slice';
+import { basketSlice } from './basket/basket.slice';
 
 export const rootReducer = combineReducers({
+  [NameSpace.Basket]: basketSlice.reducer,
   [NameSpace.Cameras]: catalogSlice.reducer,
   [NameSpace.Filter]: filterSlice.reducer,
   [NameSpace.Notification]: notificationsSlice.reducer,

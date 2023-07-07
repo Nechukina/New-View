@@ -15,14 +15,6 @@ function ProductCardList({cameras}: ProductCardListProps):JSX.Element {
   const [currentProduct, setCurrentProduct] = useState<Camera>(cameras[0]);
   const [isAddToCartModalSuccess, setAddToCartModalSuccess] = useState(false);
 
-  // const handleBuyModalShow = useCallback(() => {
-  //   setBuyModalOpened(true);
-  // }, []);
-
-  // const handleAddToCartClick = useCallback(() => {
-  //   setAddToCartModalSuccess(true);
-  //   setBuyModalOpened(false);
-  // },[]);
 
   const handleAddToCartModalHide = useCallback(() => {
     setAddToCartModalSuccess(false);

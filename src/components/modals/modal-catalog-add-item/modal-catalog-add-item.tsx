@@ -1,3 +1,5 @@
+import { useAppDispatch } from '../../../hooks';
+import { addCamera } from '../../../store/basket/basket.slice';
 import { Camera } from '../../../types/camera';
 import Modal from '../modal/modal';
 
@@ -9,12 +11,14 @@ type ModalCatalogAddItemProps = {
 }
 
 function ModalCatalogAddItem({isOpened, product, onCloseButtonClick, setAddToCartModalSuccess}: ModalCatalogAddItemProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   if(!product) {
     return <div></div>;
   }
 
   const handleClick = () => {
-    // dispatch(addCamera(camera));
+    dispatch(addCamera(product));
 
     setAddToCartModalSuccess(true);
     onCloseButtonClick();

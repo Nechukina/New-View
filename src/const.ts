@@ -30,7 +30,8 @@ export enum NameSpace {
   Order = 'ORDER',
   Notification = 'NOTIFICATION',
   Filter = 'FILTER',
-  Sort = 'SORT'
+  Sort = 'SORT',
+  Basket = 'BASKET'
 }
 
 export enum Status {
