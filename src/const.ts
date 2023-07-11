@@ -97,10 +97,19 @@ export const CAMERAS_PER_PAGE = 9;
 export const STARS_COUNT = 5;
 export const DEFAULT_REVIEWS_COUNT = 3;
 export const DISPLAYED_SEARCH_RESULT_COUNT = 4;
+export const MIN_PRODUCT_COUNT = 1;
+export const MAX_PRODUCT_COUNT = 99;
+
 
 export enum KeyCode {
   Enter = 'Enter',
   ArrowUp = 'ArrowUp',
   ArrowDown = 'ArrowDown',
   Esc = 'Escape'
+}
+
+export enum Coupon {
+  First = 'camera-333',
+  Second = 'camera-444',
+  Third = 'camera-555'
 }

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkOptions } from '../types/state';
 import { Camera, Cameras } from '../types/camera';
-import { APIRoute } from '../const';
+import { APIRoute, Coupon } from '../const';
 import { pushNotification } from './notifications/notifications.slice';
 import { PromoCamera } from '../types/promo';
 import { generatePath } from 'react-router-dom';
@@ -107,4 +107,34 @@ export const postAddReviewAction = createAsyncThunk<Review, AddReview, ThunkOpti
       throw err;
     }
   },
+);
+
+export const fetchDiscount = createAsyncThunk<number, Coupon, ThunkOptions>(
+  'data/fetchDiscount',
+  async (coupon, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.post<number>(APIRoute.Coupon, { coupon });
+      dispatch(pushNotification({ type: 'success', message: 'Купон активирован' }));
+
+      return data;
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Ошибка применения купона' }));
+      throw err;
+    }
+  }
+);
+
+export const postOrder = createAsyncThunk<number, { camerasIds: number[]; coupon: Coupon | null }, ThunkOptions>(
+  'data/postOrder',
+  async ({ camerasIds, coupon }, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.post<number>(APIRoute.Order, { camerasIds, coupon });
+      dispatch(pushNotification({ type: 'success', message: 'Заказ оформлен' }));
+
+      return data;
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Ошибка оформления заказа' }));
+      throw err;
+    }
+  }
 );
