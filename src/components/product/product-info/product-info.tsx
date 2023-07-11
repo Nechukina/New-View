@@ -4,8 +4,16 @@ import Rating from '../../rating/rating';
 import { useAppSelector } from '../../../hooks';
 import ProductTabs from '../product-tabs/product-tabs';
 
-function ProductInfo(): JSX.Element {
+export type ProductInfoProps = {
+  setBuyModalOpened: (arg: boolean) => void;
+}
+
+function ProductInfo({setBuyModalOpened}: ProductInfoProps): JSX.Element {
   const product = useAppSelector(getProduct);
+
+  const handleBuyModalOpened = () => {
+    setBuyModalOpened(true);
+  };
 
   if (!product) {
     return <Loader />;
@@ -23,7 +31,11 @@ function ProductInfo(): JSX.Element {
           <h1 className="title title--h3">{product.name}</h1>
           <Rating rating={product.rating} reviewCount={product.reviewCount} />
           <p className="product__price"><span className="visually-hidden">Цена:</span>{`${product.price} ₽`}</p>
-          <button className="btn btn--purple" type="button">
+          <button
+            className="btn btn--purple"
+            type="button"
+            onClick={handleBuyModalOpened}
+          >
             <svg width="24" height="16" aria-hidden="true">
               <use xlinkHref="#icon-add-basket"></use>
             </svg>Добавить в корзину

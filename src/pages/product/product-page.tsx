@@ -1,4 +1,4 @@
-import { useEffect, MouseEvent} from 'react';
+import { useEffect, MouseEvent, useState, useCallback} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import { AppRoute, Status } from '../../const';
@@ -15,6 +15,8 @@ import { getReviewsStatus } from '../../store/reviews/reviews.selectors';
 import ProductInfo from '../../components/product/product-info/product-info';
 import ProductSimilar from '../../components/product/product-similar/product-similar';
 import BreadcrumbsProduct from '../../components/breadcrumbs/breadcrumbs-product/breadcrumbs-product';
+import ModalCatalogAddItem from '../../components/modals/modal-catalog-add-item/modal-catalog-add-item';
+import ModalCatalogAddItemSuccess from '../../components/modals/modal-catalog-add-item-success/modal-catalog-add-item-success';
 
 function ProductPage(): JSX.Element {
   const id = useParams().id;
@@ -26,6 +28,8 @@ function ProductPage(): JSX.Element {
   const similarProductStatus = useAppSelector(getSimilarProductsStatus);
   const reviewsStatus = useAppSelector(getReviewsStatus);
 
+  const [isBuyModalOpened, setBuyModalOpened] = useState(false);
+  const [isAddToCartModalSuccessOpened, setAddToCartModalSuccessOpened] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -53,11 +57,18 @@ function ProductPage(): JSX.Element {
     });
   };
 
+  const handleBuyModalHide = useCallback(() => {
+    setBuyModalOpened(false);
+  },[]);
+
+  const handleAddToCartModalHide = useCallback(() => {
+    setAddToCartModalSuccessOpened(false);
+  },[]);
+
 
   if(!choosedProduct || productStatus === Status.Loading || similarProductStatus === Status.Loading || reviewsStatus === Status.Loading) {
     return <Loader />;
   }
-
 
   return (
     <>
@@ -71,7 +82,7 @@ function ProductPage(): JSX.Element {
           <div className="page-content">
             {choosedProduct && <BreadcrumbsProduct />}
             <div className="page-content__section">
-              {choosedProduct && <ProductInfo />}
+              {choosedProduct && <ProductInfo setBuyModalOpened={setBuyModalOpened} />}
             </div>
             <div className="page-content__section">
               {similarProducts.length && <ProductSimilar products={similarProducts} />}
@@ -85,6 +96,16 @@ function ProductPage(): JSX.Element {
             <use xlinkHref="#icon-arrow2"></use>
           </svg>
         </Link>
+        <ModalCatalogAddItem
+          isOpened={isBuyModalOpened}
+          onCloseButtonClick={handleBuyModalHide}
+          product={choosedProduct}
+          setAddToCartModalSuccess={setAddToCartModalSuccessOpened}
+        />
+        <ModalCatalogAddItemSuccess
+          isOpened={isAddToCartModalSuccessOpened}
+          onClose={handleAddToCartModalHide}
+        />
         <Footer />
       </div>
     </>

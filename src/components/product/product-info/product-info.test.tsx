@@ -23,7 +23,7 @@ const history = createMemoryHistory();
 const fakeApp = (
   <Provider store={store}>
     <HistoryRouter history={history}>
-      <ProductInfo />
+      <ProductInfo setBuyModalOpened={jest.fn()}/>
     </HistoryRouter>
   </Provider>
 );
