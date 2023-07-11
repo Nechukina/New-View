@@ -6,7 +6,7 @@ import BasketList from '../../components/basket/basket-list/basket-list';
 import BasketPromo from '../../components/basket/basket-promo/basket-promo';
 import BasketOrder from '../../components/basket/basket-order/basket-order';
 
-function Basket(): JSX.Element {
+function BasketPage(): JSX.Element {
   return (
     <>
       <Helmet>
@@ -35,4 +35,4 @@ function Basket(): JSX.Element {
   );
 }
 
-export default Basket;
+export default BasketPage;

@@ -1,10 +1,10 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import Basket from '../../pages/basket/basket';
-import Catalog from '../../pages/catalog/catalog';
-import Product from '../../pages/product/product';
 import Page404 from '../../pages/page-404/page-404';
+import BasketPage from '../../pages/basket/basket-page';
+import CatalogPage from '../../pages/catalog/catalog-page';
+import ProductPage from '../../pages/product/product-page';
 
 function App(): JSX.Element {
   return (
@@ -12,27 +12,27 @@ function App(): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Catalog />}
+          element={<CatalogPage />}
         />
         <Route
           path={AppRoute.Catalog}
-          element={<Catalog />}
+          element={<CatalogPage />}
         />
         <Route
           path={AppRoute.Basket}
-          element={<Basket />}
+          element={<BasketPage/>}
         />
         <Route
           path={AppRoute.Product}
-          element={<Product />}
+          element={<ProductPage />}
         />
         <Route
           path={AppRoute.Features}
-          element={<Product />}
+          element={<ProductPage />}
         />
         <Route
           path={AppRoute.Description}
-          element={<Product />}
+          element={<ProductPage />}
         />
         <Route
           path='*'

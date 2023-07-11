@@ -8,7 +8,7 @@ import HistoryRouter from '../../components/history-router/history-router';
 import { makeFakeCameras, makeFakePromo } from '../../utils/mocks';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
-import Catalog from './catalog';
+import CatalogPage from './catalog-page';
 
 
 const api = createAPI();
@@ -37,7 +37,7 @@ describe('Page: Catalog', () => {
       <Provider store={store}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <Catalog />
+            <CatalogPage />
           </HelmetProvider>
         </HistoryRouter>
       </Provider>

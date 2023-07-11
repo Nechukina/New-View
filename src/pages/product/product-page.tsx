@@ -16,7 +16,7 @@ import ProductInfo from '../../components/product/product-info/product-info';
 import ProductSimilar from '../../components/product/product-similar/product-similar';
 import BreadcrumbsProduct from '../../components/breadcrumbs/breadcrumbs-product/breadcrumbs-product';
 
-function Product(): JSX.Element {
+function ProductPage(): JSX.Element {
   const id = useParams().id;
   const cameraId = String(id);
   const dispatch = useAppDispatch();
@@ -91,4 +91,4 @@ function Product(): JSX.Element {
   );
 }
 
-export default Product;
+export default ProductPage;

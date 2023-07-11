@@ -19,7 +19,7 @@ import Loader from '../../components/loader/loader';
 import { QueryParams } from '../../types/query-params';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
-function Catalog(): JSX.Element {
+function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const camerasStatus = useAppSelector(getCamerasStatus);
   const promoStatus = useAppSelector(getPromoStatus);
@@ -154,4 +154,4 @@ function Catalog(): JSX.Element {
   );
 }
 
-export default Catalog;
+export default CatalogPage;

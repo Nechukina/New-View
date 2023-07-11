@@ -9,11 +9,11 @@ import ModalBasketRemoveItem from '../../modals/modal-basket-remove-item/modal-b
 function BasketList(): JSX.Element {
   const basketCameras = useAppSelector(getBasketCameras);
 
-  const [openedRemoveModal, setOpenedRemoveModal] = useState(false);
+  const [isRemoveModalOpened, setRemoveModalOpened] = useState(false);
   const [currentCamera, setCurrentCamera] = useState<Camera>({} as Camera);
 
   const handleRemoveModalCloseClick = () => {
-    setOpenedRemoveModal(false);
+    setRemoveModalOpened(false);
   };
 
   return (
@@ -24,7 +24,7 @@ function BasketList(): JSX.Element {
           : basketCameras.map((camera) => (
             <BasketItem
               camera={camera}
-              setOpenedRemoveModal={setOpenedRemoveModal}
+              setOpenedRemoveModal={setRemoveModalOpened}
               setCurrentCamera={setCurrentCamera}
               key={camera.id}
             />
@@ -32,7 +32,7 @@ function BasketList(): JSX.Element {
       </ul>
       <ModalBasketRemoveItem
         camera={currentCamera}
-        isOpen={openedRemoveModal}
+        isOpen={isRemoveModalOpened}
         onCloseCLick={handleRemoveModalCloseClick}
       />
     </>
