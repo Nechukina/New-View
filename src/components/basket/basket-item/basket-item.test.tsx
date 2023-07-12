@@ -1,14 +1,25 @@
 import { render, screen} from '@testing-library/react';
 import BasketItem from './basket-item';
-import { makeFakeBasketCamera } from '../../../utils/mocks';
+import { makeFakeCamera } from '../../../utils/mocks';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
-const camera = makeFakeBasketCamera();
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { createAPI } from '../../../services/api';
+
+const camera = makeFakeCamera();
+const api = createAPI();
+const middlewares = [thunk.withExtraArgument(api)];
+const mockStore = configureMockStore(middlewares);
+const store = mockStore({});
 
 describe('Component: basket item', () => {
   it('should render correctly', () => {
 
     render(
-      <BasketItem camera={camera}/>,
+      <Provider store={store}>
+        <BasketItem camera={camera}/>
+      </Provider>,
     );
 
     const containerElement = screen.getByTestId('basket-item');

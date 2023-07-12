@@ -1,18 +1,27 @@
 import {render, screen} from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../../history-router/history-router';
-import { makeFakeBasketCamera } from '../../../utils/mocks';
+import { makeFakeCamera } from '../../../utils/mocks';
 import ProductCard from './product-card';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { Provider } from 'react-redux';
+import { NameSpace } from '../../../const';
 
 
-const mockCamera = makeFakeBasketCamera();
+const mockCamera = makeFakeCamera();
 
 const history = createMemoryHistory();
+const mockStore = configureMockStore();
+const store = mockStore({
+  [NameSpace.Basket]: {basketCameras: [mockCamera]}
+});
 
 const fakeApp = (
-  <HistoryRouter history={history}>
-    <ProductCard camera={mockCamera} />
-  </HistoryRouter>
+  <Provider store={store}>
+    <HistoryRouter history={history}>
+      <ProductCard camera={mockCamera} />
+    </HistoryRouter>
+  </Provider>
 );
 
 describe('Component: product  card', () => {

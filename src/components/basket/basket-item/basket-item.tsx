@@ -1,14 +1,14 @@
 import { ChangeEvent } from 'react';
 import { MAX_PRODUCT_COUNT, MIN_PRODUCT_COUNT } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
-import { BasketCamera } from '../../../types/camera';
+import { Camera } from '../../../types/camera';
 import { getTotalProductPrice } from '../../../utils/basket';
 import { addCamera, decrementCameraCount, setCameraCount } from '../../../store/basket/basket.slice';
 
 export type BasketItemProps = {
-  camera: BasketCamera;
+  camera: Camera;
   setOpenedRemoveModal?: (arg: boolean) => void;
-  setCurrentCamera?: (camera: BasketCamera) => void;
+  setCurrentCamera?: (camera: Camera) => void;
 }
 
 function BasketItem({camera, setCurrentCamera, setOpenedRemoveModal}: BasketItemProps): JSX.Element {
