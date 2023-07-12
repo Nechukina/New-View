@@ -1,10 +1,10 @@
 import { useAppDispatch } from '../../../hooks';
 import { removeCamera } from '../../../store/basket/basket.slice';
-import { Camera } from '../../../types/camera';
+import { BasketCamera } from '../../../types/camera';
 import Modal from '../modal/modal';
 
 export type ModalBasketRemoveItemProps = {
-  camera: Camera;
+  camera: BasketCamera;
   isOpen: boolean;
   onCloseCLick: () => void;
 }

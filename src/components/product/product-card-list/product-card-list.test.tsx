@@ -1,12 +1,12 @@
 import {render, screen} from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../../history-router/history-router';
-import { makeFakeCameras } from '../../../utils/mocks';
+import { makeFakeBasketCamera } from '../../../utils/mocks';
 import ProductCardList from './product-card-list';
 
 
 const history = createMemoryHistory();
-const mockCameras = makeFakeCameras();
+const mockCameras = [makeFakeBasketCamera()];
 
 const fakeApp = (
   <HistoryRouter history={history}>

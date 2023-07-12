@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Camera, Cameras } from '../../../types/camera';
+import { Camera, Cameras} from '../../../types/camera';
 import ProductCard from '../product-card/product-card';
 import ModalCatalogAddItem from '../../modals/modal-catalog-add-item/modal-catalog-add-item';
 import ModalCatalogAddItemSuccess from '../../modals/modal-catalog-add-item-success/modal-catalog-add-item-success';

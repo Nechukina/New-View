@@ -1,11 +1,11 @@
 import {render, screen} from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../../history-router/history-router';
-import { makeFakeCamera } from '../../../utils/mocks';
+import { makeFakeBasketCamera } from '../../../utils/mocks';
 import ModalCatalogAddItem from './modal-catalog-add-item';
 
 
-const mockProduct = makeFakeCamera();
+const mockProduct = makeFakeBasketCamera();
 
 
 const history = createMemoryHistory();

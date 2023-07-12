@@ -13,6 +13,14 @@
     height: 80px;
     animation: spin 1s linear infinite;
   }
+  .small {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #8e61d4;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
   
   @keyframes spin {
     0% {

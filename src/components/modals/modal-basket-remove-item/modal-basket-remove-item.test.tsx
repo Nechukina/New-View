@@ -1,12 +1,12 @@
 import { render, screen} from '@testing-library/react';
 import ModalBasketRemoveItem from './modal-basket-remove-item';
-import { makeFakeCamera } from '../../../utils/mocks';
+import { makeFakeBasketCamera } from '../../../utils/mocks';
 import HistoryRouter from '../../history-router/history-router';
 import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 
-const mockCamera = makeFakeCamera();
+const mockCamera = makeFakeBasketCamera();
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
 const store = mockStore({});

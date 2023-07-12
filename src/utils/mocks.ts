@@ -1,6 +1,6 @@
 import {datatype, random, image, lorem, name, date} from 'faker';
 import { AddReview, Review, Reviews } from '../types/review';
-import { Camera, Cameras } from '../types/camera';
+import { BasketCamera, Camera, Cameras } from '../types/camera';
 import { PromoCamera } from '../types/promo';
 import { Notification } from '../types/notifications';
 
@@ -24,6 +24,24 @@ export const makeFakeCamera = (id = MOCK_DEFAULT_NUMBER):Camera=>({
   previewImgWebp: image.animals(),
   previewImgWebp2x: image.city()
 } as Camera);
+
+export const makeFakeBasketCamera = (id = MOCK_DEFAULT_NUMBER):BasketCamera=>({
+  id,
+  name: random.words(2),
+  vendorCode: random.alpha({count: 10}),
+  type: lorem.word(),
+  category: random.word(),
+  description: lorem.sentences(),
+  level: random.word(),
+  price: datatype.number({min: 0, max: 150000, precision: 1}),
+  reviewCount: datatype.number({min: 0, max: 100, precision: 1}),
+  previewImg: image.technics(),
+  previewImg2x: image.abstract(),
+  previewImgWebp: image.animals(),
+  previewImgWebp2x: image.city(),
+  count: 1,
+  totalPrice: 1
+} as BasketCamera);
 
 export const makeFakeCameras = (amount = CAMERAS_AMOUNT):Cameras=> Array.from({length:amount},(_, i)=> makeFakeCamera(i + 1));
 

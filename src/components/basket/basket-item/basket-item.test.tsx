@@ -1,8 +1,8 @@
 import { render, screen} from '@testing-library/react';
 import BasketItem from './basket-item';
-import { makeFakeCamera } from '../../../utils/mocks';
+import { makeFakeBasketCamera } from '../../../utils/mocks';
 
-const camera = makeFakeCamera();
+const camera = makeFakeBasketCamera();
 
 describe('Component: basket item', () => {
   it('should render correctly', () => {

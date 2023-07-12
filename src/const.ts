@@ -99,6 +99,7 @@ export const DEFAULT_REVIEWS_COUNT = 3;
 export const DISPLAYED_SEARCH_RESULT_COUNT = 4;
 export const MIN_PRODUCT_COUNT = 1;
 export const MAX_PRODUCT_COUNT = 99;
+export const LOCAL_STORAGE = 'LOCAL_STORAGE';
 
 
 export enum KeyCode {

@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useAppSelector } from '../../../hooks';
-import { getBasketCameras } from '../../../store/basket/basket.selectors';
+import { selectAllBasketProducts } from '../../../store/basket/basket.selectors';
 import BasketItem from '../basket-item/basket-item';
 import BasketListEmpty from '../basket-list-empty/basket-list-empty';
-import { Camera } from '../../../types/camera';
+import { BasketCamera } from '../../../types/camera';
 import ModalBasketRemoveItem from '../../modals/modal-basket-remove-item/modal-basket-remove-item';
 
 function BasketList(): JSX.Element {
-  const basketCameras = useAppSelector(getBasketCameras);
+  const basketCameras = useAppSelector(selectAllBasketProducts);
+
 
   const [isRemoveModalOpened, setRemoveModalOpened] = useState(false);
-  const [currentCamera, setCurrentCamera] = useState<Camera>({} as Camera);
+  const [currentCamera, setCurrentCamera] = useState<BasketCamera>({} as BasketCamera);
 
   const handleRemoveModalCloseClick = () => {
     setRemoveModalOpened(false);

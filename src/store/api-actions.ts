@@ -124,7 +124,7 @@ export const fetchDiscount = createAsyncThunk<number, Coupon, ThunkOptions>(
   }
 );
 
-export const postOrder = createAsyncThunk<number, { camerasIds: number[]; coupon: Coupon | null }, ThunkOptions>(
+export const postOrder = createAsyncThunk<number, { camerasIds: number[]; coupon: Coupon | 0 }, ThunkOptions>(
   'data/postOrder',
   async ({ camerasIds, coupon }, { dispatch, extra: api }) => {
     try {

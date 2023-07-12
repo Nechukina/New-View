@@ -1,6 +1,12 @@
-function Spinner(): JSX.Element {
+import clsx from 'clsx';
+
+type SpinnerProps = {
+  isSmall?: boolean;
+}
+
+function Spinner({isSmall}: SpinnerProps): JSX.Element {
   return (
-    <div className="loader" data-testid="spinner" style = {{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}></div>
+    <div className={clsx('loader', isSmall && 'small')} data-testid="spinner" style = {{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}></div>
   );
 }
 
