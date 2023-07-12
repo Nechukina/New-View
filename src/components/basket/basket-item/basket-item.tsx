@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { MAX_PRODUCT_COUNT, MIN_PRODUCT_COUNT } from '../../../const';
+import { CameraCategory, MAX_PRODUCT_COUNT, MIN_PRODUCT_COUNT } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
 import { Camera } from '../../../types/camera';
 import { getTotalProductPrice } from '../../../utils/basket';
@@ -71,7 +71,12 @@ function BasketItem({camera, setCurrentCamera, setOpenedRemoveModal}: BasketItem
             <span className="basket-item__article">Артикул: </span>
             <span className="basket-item__number">{camera.vendorCode}</span>
           </li>
-          <li className="basket-item__list-item">{camera.type} камера</li>
+          {camera.category === CameraCategory.Photocamera
+            ?
+            <li className="basket-item__list-item">{camera.type} фотокамера</li>
+            :
+            <li className="basket-item__list-item">{camera.type} видеокамера</li>}
+
           <li className="basket-item__list-item">{camera.level} уровень</li>
         </ul>
       </div>

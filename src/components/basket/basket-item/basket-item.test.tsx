@@ -3,7 +3,6 @@ import BasketItem from './basket-item';
 import { makeFakeCamera } from '../../../utils/mocks';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../../../services/api';
 

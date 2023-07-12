@@ -8,19 +8,16 @@ export const getInitialEntityAdapterState = <T, S extends object>(
   initialState: S,
   localStorageResult?: string | null
 ) => {
-  // eslint-disable-next-line no-debugger
-//   debugger;
+
   if (localStorageResult) {
     const result = JSON.parse(localStorageResult) as EntityState<T> & S;
-    // eslint-disable-next-line no-console
-    // console.log(result, 'result');
+
     return adapter.setAll(
       adapter.getInitialState({ ...result }),
       result.entities as Record<EntityId, T>
     );
   }
-  // eslint-disable-next-line no-console
-  //   console.log(adapter.getInitialState<S>(initialState), 'initial');
+
 
   return adapter.getInitialState<S>(initialState);
 };

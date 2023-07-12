@@ -35,20 +35,12 @@ export const basketSlice = createSlice({
   initialState: stateWithAdapter,
   reducers: {
     addCamera: (state, action: {payload: Camera}) => {
-      // const findedCamera = state.basketCameras.find((camera) => camera.id === action.payload.id);
       const product = state.entities[action.payload.id];
 
       if (product) {
         product.count ++;
         product.totalPrice = product.count * product.price;
-
         state.totalPrice += product.price;
-      // if (findedCamera && findedCamera.count) {
-      //   // eslint-disable-next-line no-debugger
-      //   // debugger;
-      //   findedCamera.count++;
-      //   findedCamera.totalPrice = findedCamera.count * findedCamera.price;
-      //   state.totalPrice += findedCamera.totalPrice;
       } else {
         state.basketCameras.push({ ...action.payload, count: 1 });
         state.totalPrice += action.payload.price;
@@ -60,12 +52,21 @@ export const basketSlice = createSlice({
       saveToLocalStorage(state);
     },
     decrementCameraCount: (state, action: {payload: Camera}) => {
+      const product = state.entities[action.payload.id];
       const findedCamera = state.basketCameras.find((camera) => camera.id === action.payload.id);
 
-      if (findedCamera && findedCamera.count) {
-        findedCamera.count--;
+      if (product && findedCamera && findedCamera.count) {
+        product.count--;
+        product.totalPrice = product.count * product.price;
+
         state.totalCount--;
+        state.totalPrice -= product.price;
+
+        findedCamera.count--;
+
+        saveToLocalStorage(state);
       }
+
     },
     removeCamera: (state, action: {payload: Camera}) => {
       const product = state.entities[action.payload.id];
@@ -75,19 +76,29 @@ export const basketSlice = createSlice({
       }
 
       state.basketCameras = state.basketCameras.filter((camera) => camera.id !== action.payload.id);
-      state.totalCount -= state.basketCameras.find((camera) => camera.id === action.payload.id)?.count as number;
-      state.totalPrice -= state.basketCameras.find((camera) => camera.id === action.payload.id)?.totalPrice as number;
 
       productsAdapter.removeOne(state, action.payload.id);
+
       saveToLocalStorage(state);
 
     },
     setCameraCount: (state, action: {payload: { id: number; count: number }}) => {
+      const product = state.entities[action.payload.id];
       const findedCamera = state.basketCameras.find((camera) => camera.id === action.payload.id);
 
-      if (findedCamera) {
+      if (product && findedCamera) {
+        state.totalCount -= product.count;
+        product.count = action.payload.count;
+
+        state.totalPrice -= product.totalPrice;
+        product.totalPrice = product.count * product.price;
+
+        state.totalCount += product.count;
+        state.totalPrice += product.totalPrice;
+
         findedCamera.count = action.payload.count;
-        state.totalCount = state.basketCameras.reduce((acc, camera) => acc + (camera.count as number), 0);
+
+        saveToLocalStorage(state);
       }
     },
     setCoupon: (state, action: {payload: Coupon}) => {
