@@ -1,26 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { HelmetProvider } from 'react-helmet-async';
 import HistoryRouter from '../../components/history-router/history-router';
-import { NameSpace, Status } from '../../const';
-import { makeFakeCameras } from '../../utils/mocks';
+import { createMockStore } from '../../utils/mocks';
 import BasketPage from './basket-page';
+import { createMockStoreWithAPI } from '../../utils/jest';
 
-const mockStore = configureMockStore([thunk]);
-const mockCameras = makeFakeCameras();
+const history = createMemoryHistory();
+const store = createMockStore();
+const { fakeStore } = createMockStoreWithAPI(store);
+
 
 describe('Page: Basket', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({
-      [NameSpace.Cameras]: {catalog: mockCameras, status: Status.Success},
-    });
 
     render(
-      <Provider store={store}>
+      <Provider store={fakeStore}>
         <HistoryRouter history={history}>
           <HelmetProvider>
             <BasketPage />

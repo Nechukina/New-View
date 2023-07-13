@@ -1,29 +1,19 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
-import thunk from 'redux-thunk';
-import { NameSpace, Status } from '../../const';
-import { createAPI } from '../../services/api';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../history-router/history-router';
-import { makeFakeCameras, makeFakePromo } from '../../utils/mocks';
+import { createMockStore, } from '../../utils/mocks';
 import { Provider } from 'react-redux';
 import Banner from './banner';
+import { createMockStoreWithAPI } from '../../utils/jest';
 
 
-const api = createAPI();
-const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore(middlewares);
-const mockCameras = makeFakeCameras();
-const mockPromo = makeFakePromo();
-const store = mockStore({
-  [NameSpace.Cameras]: {catalog: mockCameras, status: Status.Success},
-  [NameSpace.Promo]: {camera: mockPromo, status: Status.Success}
-});
+const store = createMockStore();
+const { fakeStore } = createMockStoreWithAPI(store);
 
 const history = createMemoryHistory();
 
 const fakeApp = (
-  <Provider store={store}>
+  <Provider store={fakeStore}>
     <HistoryRouter history={history}>
       <Banner />
     </HistoryRouter>
