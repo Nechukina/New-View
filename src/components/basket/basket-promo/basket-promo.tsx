@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Coupon } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { getCoupon, getDiscountStatus } from '../../../store/basket/basket.selectors';
-import { fetchDiscount } from '../../../store/api-actions';
+import { postDiscount } from '../../../store/api-actions';
 import clsx from 'clsx';
 import Loader from '../../loader/loader';
 import { setCoupon } from '../../../store/basket/basket.slice';
@@ -30,7 +30,7 @@ function BasketPromo(): JSX.Element {
 
   const onSubmit: SubmitHandler<PromoFormField> = (data) => {
 
-    dispatch(fetchDiscount(data.promo));
+    dispatch(postDiscount(data.promo));
   };
 
   return (

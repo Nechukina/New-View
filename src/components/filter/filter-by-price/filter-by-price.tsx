@@ -85,8 +85,7 @@ function FilterByPrice({resetFilters}: FilterByPriceProps): JSX.Element {
   };
 
   const checkMaxPrice = () => {
-    // eslint-disable-next-line no-debugger
-    // debugger;
+
     if (!maxPriceValue) {
       setMaxPriceValue(0);
       dispatch(setMaxPrice(0));

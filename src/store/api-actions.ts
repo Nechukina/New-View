@@ -109,8 +109,8 @@ export const postAddReviewAction = createAsyncThunk<Review, AddReview, ThunkOpti
   },
 );
 
-export const fetchDiscount = createAsyncThunk<number, Coupon, ThunkOptions>(
-  'data/fetchDiscount',
+export const postDiscount = createAsyncThunk<number, Coupon, ThunkOptions>(
+  'data/postDiscount',
   async (coupon, { dispatch, extra: api }) => {
     try {
       const { data } = await api.post<number>(APIRoute.Coupon, { coupon });
@@ -124,7 +124,7 @@ export const fetchDiscount = createAsyncThunk<number, Coupon, ThunkOptions>(
   }
 );
 
-export const postOrder = createAsyncThunk<number, { camerasIds: number[]; coupon: Coupon | 0 }, ThunkOptions>(
+export const postOrder = createAsyncThunk<number, { camerasIds: number[]; coupon: Coupon | 0 | null}, ThunkOptions>(
   'data/postOrder',
   async ({ camerasIds, coupon }, { dispatch, extra: api }) => {
     try {

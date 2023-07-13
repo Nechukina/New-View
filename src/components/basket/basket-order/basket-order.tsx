@@ -24,6 +24,11 @@ function BasketOrder(): JSX.Element {
 
 
   const handleClick = () => {
+    if(currentCoupon === 0){
+      const emptyCoupon = null;
+      dispatch(postOrder({ camerasIds: camerasIds, coupon: emptyCoupon }));
+      return;
+    }
     dispatch(postOrder({ camerasIds: camerasIds, coupon: currentCoupon }));
   };
 

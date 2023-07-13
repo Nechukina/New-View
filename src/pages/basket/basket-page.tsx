@@ -5,6 +5,7 @@ import BreadcrumbsBasket from '../../components/breadcrumbs/breadcrumbs-basket/b
 import BasketList from '../../components/basket/basket-list/basket-list';
 import BasketPromo from '../../components/basket/basket-promo/basket-promo';
 import BasketOrder from '../../components/basket/basket-order/basket-order';
+import ModalProductBasketSuccess from '../../components/modals/modal-product-basket-success/modal-product-basket-success';
 
 function BasketPage(): JSX.Element {
   return (
@@ -28,6 +29,7 @@ function BasketPage(): JSX.Element {
               </div>
             </section>
           </div>
+          <ModalProductBasketSuccess />
         </main>
         <Footer />
       </div>

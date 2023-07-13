@@ -13,11 +13,11 @@ export const getBasketCameras = (state: State): Cameras => state[NameSpace.Baske
 export const getTotalCount = (state: State): number => state[NameSpace.Basket].totalCount;
 export const getTotalPrice = (state: State): number => state[NameSpace.Basket].totalPrice;
 export const getDiscountPercent = (state: State): number => state[NameSpace.Basket].discount;
-export const getFetchDiscountStatus = (state: State): Status => state[NameSpace.Basket].discountStatus;
+export const getPostDiscountStatus = (state: State): Status => state[NameSpace.Basket].discountStatus;
 export const getCoupon = (state: State): Coupon | 0 => state[NameSpace.Basket].coupon;
 export const getPostOrderStatus = (state: State): Status => state[NameSpace.Basket].orderStatus;
 
-export const getDiscountStatus = createSelector([getFetchDiscountStatus], (status) => ({
+export const getDiscountStatus = createSelector([getPostDiscountStatus], (status) => ({
   isLoading: status === Status.Loading,
   isSuccess: status === Status.Success,
   isError: status === Status.Error

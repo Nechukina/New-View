@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { BasketCamera, Camera, Cameras } from '../../types/camera';
 import { Coupon, LOCAL_STORAGE, NameSpace, Status } from '../../const';
-import { fetchDiscount, postOrder } from '../api-actions';
+import { postDiscount, postOrder } from '../api-actions';
 import { getInitialEntityAdapterState, saveToLocalStorage } from '../../utils/local-storage';
 
 export type BasketSlice = {
@@ -106,18 +106,22 @@ export const basketSlice = createSlice({
     },
     resetOrderStatus: (state) => {
       state.orderStatus = Status.Idle;
+    },
+    resetBasket() {
+      localStorage.removeItem(LOCAL_STORAGE);
+      return productsAdapter.getInitialState(initialState);
     }
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchDiscount.pending, (state) => {
+      .addCase(postDiscount.pending, (state) => {
         state.discountStatus = Status.Loading;
       })
-      .addCase(fetchDiscount.fulfilled, (state, action) => {
+      .addCase(postDiscount.fulfilled, (state, action) => {
         state.discount = action.payload;
         state.discountStatus = Status.Success;
       })
-      .addCase(fetchDiscount.rejected, (state) => {
+      .addCase(postDiscount.rejected, (state) => {
         state.discountStatus = Status.Error;
       })
       .addCase(postOrder.pending, (state) => {
@@ -136,4 +140,12 @@ export const basketSlice = createSlice({
   }
 });
 
-export const {addCamera, decrementCameraCount, removeCamera, setCameraCount, setCoupon, resetOrderStatus} = basketSlice.actions;
+export const {
+  addCamera,
+  decrementCameraCount,
+  removeCamera,
+  setCameraCount,
+  setCoupon,
+  resetOrderStatus,
+  resetBasket
+} = basketSlice.actions;
