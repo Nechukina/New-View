@@ -6,7 +6,6 @@ import ProductTabs from './product-tabs';
 
 
 const mockCamera = makeFakeCamera();
-
 const history = createMemoryHistory();
 
 const fakeApp = (

@@ -1,25 +1,21 @@
 import { render, screen } from '@testing-library/react';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../../history-router/history-router';
 import SortByOrder from './sort-by-order';
-import { NameSpace, SortOrder, SortType } from '../../../const';
+import { createMockStore } from '../../../utils/mocks';
+import { createMockStoreWithAPI } from '../../../utils/jest';
 
-const mockStore = configureMockStore();
+
+const store = createMockStore();
+const { fakeStore } = createMockStoreWithAPI(store);
+const history = createMemoryHistory();
 
 describe('Component: SortByOrder', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({
-      [NameSpace.Sort]: {
-        sortOrder: SortOrder.Up,
-        sortType: SortType.SortPrice
-      },
-    });
 
     render(
-      <Provider store={store}>
+      <Provider store={fakeStore}>
         <HistoryRouter history={history}>
           <SortByOrder />
         </HistoryRouter>

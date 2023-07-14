@@ -139,7 +139,6 @@ export const basketSlice = createSlice({
       });
   }
 });
-
 export const {
   addCamera,
   decrementCameraCount,

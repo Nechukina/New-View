@@ -1,24 +1,20 @@
 import { render, screen } from '@testing-library/react';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../../history-router/history-router';
 import SearchForm from './search-form';
-import { NameSpace, Status } from '../../../const';
-import { makeFakeCameras } from '../../../utils/mocks';
+import { createMockStore } from '../../../utils/mocks';
+import { createMockStoreWithAPI } from '../../../utils/jest';
 
-const mockStore = configureMockStore();
-const cameras = makeFakeCameras();
+const store = createMockStore();
+const { fakeStore } = createMockStoreWithAPI(store);
+const history = createMemoryHistory();
 
 describe('Component: SearchForm', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({
-      [NameSpace.Cameras]: {catalog: cameras, status: Status.Success},
-    });
 
     render(
-      <Provider store={store}>
+      <Provider store={fakeStore}>
         <HistoryRouter history={history}>
           <SearchForm />
         </HistoryRouter>

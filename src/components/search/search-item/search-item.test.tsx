@@ -8,11 +8,11 @@ import { makeFakeCamera } from '../../../utils/mocks';
 
 const mockStore = configureMockStore();
 const camera = makeFakeCamera();
-
+const history = createMemoryHistory();
+const store = mockStore({});
 describe('Component: SearchItem', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({});
+
 
     render(
       <Provider store={store}>

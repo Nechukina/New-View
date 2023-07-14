@@ -4,9 +4,7 @@ import HistoryRouter from '../../history-router/history-router';
 import { makeFakeCamera } from '../../../utils/mocks';
 import ProductSimilarCard from './product-similar-card';
 
-
 const mockCamera = makeFakeCamera();
-
 const history = createMemoryHistory();
 
 const fakeApp = (

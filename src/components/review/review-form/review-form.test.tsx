@@ -6,7 +6,6 @@ import HistoryRouter from '../../history-router/history-router';
 import ReviewForm from './review-form';
 
 const mockStore = configureMockStore();
-const onClose = () => { jest.fn(); };
 
 describe('Component: ReviewForm', () => {
   it('should render correctly', () => {
@@ -16,7 +15,7 @@ describe('Component: ReviewForm', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <ReviewForm onClose={onClose} />
+          <ReviewForm onClose={jest.fn()} />
         </HistoryRouter>
       </Provider>
     );

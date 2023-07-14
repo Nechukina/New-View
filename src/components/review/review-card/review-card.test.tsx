@@ -6,7 +6,6 @@ import ReviewCard from './review-card';
 
 
 const mockReview = makeFakeReview();
-
 const history = createMemoryHistory();
 
 const fakeApp = (
