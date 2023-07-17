@@ -35,10 +35,14 @@ export const basketSlice = createSlice({
   initialState: stateWithAdapter,
   reducers: {
     addCamera: (state, action: {payload: Camera}) => {
-      const product = state.entities[action.payload.id];
 
-      if (product) {
+      const product = state.entities[action.payload.id];
+      const findedCamera = state.basketCameras.find((camera) => camera.id === action.payload.id);
+
+      if (product && findedCamera?.count) {
         product.count ++;
+        findedCamera.count ++;
+        findedCamera.totalPrice = findedCamera.count * findedCamera.price;
         product.totalPrice = product.count * product.price;
         state.totalPrice += product.price;
       } else {
@@ -52,6 +56,8 @@ export const basketSlice = createSlice({
       saveToLocalStorage(state);
     },
     decrementCameraCount: (state, action: {payload: Camera}) => {
+
+
       const product = state.entities[action.payload.id];
       const findedCamera = state.basketCameras.find((camera) => camera.id === action.payload.id);
 

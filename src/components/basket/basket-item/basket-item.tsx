@@ -47,6 +47,7 @@ function BasketItem({camera, setCurrentCamera, setOpenedRemoveModal}: BasketItem
   };
 
   const handleDecrementClick = () => {
+
     dispatch(decrementCameraCount(camera));
   };
 
