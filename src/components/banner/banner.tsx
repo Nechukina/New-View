@@ -4,14 +4,15 @@ import { getPromo, getPromoDescription } from '../../store/promo/promo.selectors
 import { useAppSelector } from '../../hooks';
 
 function Banner(): JSX.Element {
-  const promo = useAppSelector(getPromo);
+  const promos = useAppSelector(getPromo);
   const description = useAppSelector(getPromoDescription);
 
-  if (!promo) {
+  if (!promos.length) {
     return (
       <div></div>
     );
   }
+  const promo = promos[0];
 
   return (
     <div className="banner">

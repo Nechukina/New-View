@@ -5,13 +5,13 @@ import { PromoCamera } from '../../types/promo';
 
 
 export type PromoSlice = {
-  camera: PromoCamera | null;
+  camera: PromoCamera[];
   status: Status;
   description: string | null;
   };
 
 export const initialState: PromoSlice = {
-  camera: null,
+  camera: [],
   status: Status.Idle,
   description: null,
 };

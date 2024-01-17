@@ -89,7 +89,7 @@ export const makeFakeNotification = (): Notification => ({
 
 const productsAdapter = createEntityAdapter<BasketCamera>();
 const mockCameras = makeFakeCameras();
-const mockPromo = makeFakePromo();
+const mockPromo = [makeFakePromo()];
 const mockProduct = makeFakeCamera();
 const mockReviews = makeFakeReviews();
 export const createMockStore = (): State => ({

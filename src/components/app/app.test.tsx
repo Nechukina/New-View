@@ -23,6 +23,9 @@ const fakeApp = (
 
 describe('Application Routing', () => {
   it('should render "Catalog" when user navigate to "/"', () => {
+    // eslint-disable-next-line no-console
+    console.log('store', fakeStore);
+
     history.push(AppRoute.Main);
 
     render(fakeApp);

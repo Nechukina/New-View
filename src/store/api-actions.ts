@@ -29,17 +29,17 @@ export const getCatalogAction = createAsyncThunk<Cameras, undefined, ThunkOption
   }
 );
 
-export const getPromoAction = createAsyncThunk<PromoCamera , undefined, ThunkOptions>(
+export const getPromoAction = createAsyncThunk<PromoCamera[] , undefined, ThunkOptions>(
   'data/getPromo',
   async (_arg, { dispatch, extra: api, getState}) => {
     try {
-      const { data } = await api.get<PromoCamera>(APIRoute.Promo);
+      const { data } = await api.get<PromoCamera[]>(APIRoute.Promo);
 
       const {catalog} = getState().CAMERAS;
 
-      const description = catalog.find((camera) => camera.name === data.name)?.description;
+      const promoDescription = catalog.filter((camera) => data.some((cam) => cam.id === camera.id));
 
-      dispatch(setDescription(description as string));
+      dispatch(setDescription(promoDescription[0].description));
 
       return data;
     } catch (err) {
