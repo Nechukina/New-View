@@ -6,7 +6,7 @@ import { generatePath } from 'react-router-dom';
 import { AddReview, Review, Reviews } from '../types/review';
 
 
-const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy';
+const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro/';
 const REQUEST_TIMEOUT = 5000;
 
 export const createAPI = (): AxiosInstance => {
